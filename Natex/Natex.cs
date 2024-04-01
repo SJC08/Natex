@@ -2,32 +2,34 @@
 
 namespace Asjc.Natex
 {
-    public class Natex(string pattern)
+    public class Natex
     {
-        public string Pattern { get; } = pattern;
+        public string Pattern { get; }
 
-        public List<INatexMatcher> Matchers { get; set; } = [new ComparisonMatcher()];
+        public List<INatexMatcher> Matchers { get; set; } = [new PropertyMatcher(), new ComparisonMatcher()];
 
-        public NatexType Type { get; set; } = NatexType.Single | NatexType.Multiple;
-
-        public bool Match(object obj)
+        public Natex(string pattern)
         {
-            if (Type.HasFlag(NatexType.Single))
-            {
-                foreach (var matcher in Matchers)
-                {
-                    switch (matcher.Match(obj, Pattern))
-                    {
-                        case 1:
-                            return true;
-                        case 2:
-                            return false;
-                    }
-                }
-            }
-            if (Type.HasFlag(NatexType.Multiple))
-            {
+            Pattern = pattern;
+        }
 
+        public Natex(string pattern, Natex natex)
+        {
+            Pattern = pattern;
+            Matchers = natex.Matchers;
+        }
+
+        public bool Match(object? obj)
+        {
+            foreach (var matcher in Matchers)
+            {
+                switch (matcher.Match(obj, this))
+                {
+                    case 1:
+                        return true;
+                    case 2:
+                        return false;
+                }
             }
             return false;
         }

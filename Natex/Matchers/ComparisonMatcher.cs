@@ -4,8 +4,9 @@ namespace Asjc.Natex.Matchers
 {
     public class ComparisonMatcher : INatexMatcher
     {
-        public int Match(object obj, string pattern)
+        public int Match(object? obj, Natex natex)
         {
+            string pattern = natex.Pattern;
             if (obj is IComparable comparable)
             {
                 if (pattern.StartsWith(">="))
