@@ -25,15 +25,12 @@ namespace Asjc.Natex
             {
                 if (!matcher.Parsed)
                     matcher.Parse(this);
-                if (matcher.Valid)
+                switch (matcher.Match(obj))
                 {
-                    switch (matcher.Match(obj))
-                    {
-                        case 1:
-                            return true;
-                        case 2:
-                            return false;
-                    }
+                    case 1:
+                        return true;
+                    case 2:
+                        return false;
                 }
             }
             return false;

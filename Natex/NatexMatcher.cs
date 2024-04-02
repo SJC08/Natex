@@ -4,18 +4,15 @@
     {
         internal Natex? natex;
 
-        public bool Valid { get; set; } = true;
-        public bool Parsed { get; set; }
+        public bool Parsed { get; internal set; }
 
         public virtual void Parse(Natex natex)
         {
             this.natex = natex;
+            Parsed = true;
         }
 
-        public virtual int Match(object? obj)
-        {
-            return Match(obj, natex!);
-        }
+        public virtual int Match(object? obj) => natex != null ? Match(obj, natex) : 0;
 
         public virtual int Match(object? obj, Natex natex) => 0;
     }

@@ -2,7 +2,7 @@
 {
     public class PropertyMatcher : NatexMatcher
     {
-        private string[] pattern;
+        private string[]? pattern;
 
         public override void Parse(Natex natex)
         {
@@ -12,11 +12,14 @@
 
         public override int Match(object? obj)
         {
+            if (natex == null || pattern == null)
+                return 0;
             var info = obj?.GetType().GetProperty(pattern[0]);
             if (info != null)
             {
                 var value = info.GetValue(obj);
-                if (new Natex(pattern[1], natex).Match(value)) return 1;
+                if (new Natex(pattern[1], natex).Match(value)) 
+                    return 1;
             }
             return 0;
         }
