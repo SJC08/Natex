@@ -2,9 +2,9 @@
 
 namespace Asjc.Natex.Matchers
 {
-    public class ComparisonMatcher : INatexMatcher
+    public class ComparisonMatcher : NatexMatcher
     {
-        public int Match(object? obj, Natex natex)
+        public override int Match(object? obj, Natex natex)
         {
             string pattern = natex.Pattern;
             if (obj is IComparable comparable)

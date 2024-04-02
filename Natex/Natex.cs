@@ -6,7 +6,7 @@ namespace Asjc.Natex
     {
         public string Pattern { get; }
 
-        public List<INatexMatcher> Matchers { get; set; } = [new PropertyMatcher(), new ComparisonMatcher()];
+        public List<NatexMatcher> Matchers { get; set; } = [new PropertyMatcher(), new ComparisonMatcher()];
 
         public Natex(string pattern)
         {
@@ -23,12 +23,17 @@ namespace Asjc.Natex
         {
             foreach (var matcher in Matchers)
             {
-                switch (matcher.Match(obj, this))
+                if (!matcher.Parsed)
+                    matcher.Parse(this);
+                if (matcher.Valid)
                 {
-                    case 1:
-                        return true;
-                    case 2:
-                        return false;
+                    switch (matcher.Match(obj))
+                    {
+                        case 1:
+                            return true;
+                        case 2:
+                            return false;
+                    }
                 }
             }
             return false;
