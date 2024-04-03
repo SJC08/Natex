@@ -4,9 +4,7 @@ namespace Asjc.Natex
 {
     public class Natex
     {
-        public string Pattern { get; }
-
-        public List<NatexMatcher> Matchers { get; set; } = [new PropertyMatcher(), new ComparisonMatcher()];
+        private readonly Dictionary<INatexMatcher, object?> map = [];
 
         public Natex(string pattern)
         {
@@ -19,13 +17,16 @@ namespace Asjc.Natex
             Matchers = natex.Matchers;
         }
 
+        public string Pattern { get; }
+
+        public List<INatexMatcher> Matchers { get; set; } = [new ComparisonMatcher(), new PropertyMatcher()];
+
         public bool Match(object? obj)
         {
             foreach (var matcher in Matchers)
             {
-                if (!matcher.Parsed)
-                    matcher.Parse(this);
-                switch (matcher.Match(obj))
+                map.TryAdd(matcher, matcher.Parse(this));
+                switch (matcher.Match(obj, map[matcher]))
                 {
                     case 1:
                         return true;

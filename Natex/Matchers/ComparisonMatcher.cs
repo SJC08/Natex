@@ -2,13 +2,13 @@
 
 namespace Asjc.Natex.Matchers
 {
-    public class ComparisonMatcher : NatexMatcher
+    public class ComparisonMatcher : INatexMatcher
     {
-        public override int Match(object? obj, Natex natex)
+        public int Match(object? obj, object? data)
         {
-            string pattern = natex.Pattern;
-            if (obj is IComparable comparable)
+            if (obj is IComparable comparable && data is Natex natex)
             {
+                string pattern = natex.Pattern;
                 if (pattern.StartsWith(">="))
                 {
                     var value = pattern[2..].ChangeType(comparable.GetType());
