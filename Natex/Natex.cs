@@ -6,7 +6,7 @@ namespace Asjc.Natex
     {
         public string Pattern { get; }
 
-        public List<NatexMatcher> Matchers { get; set; } = [new ComparisonMatcher(), new PropertyMatcher(), new MultiPatternMatcher()];
+        public List<NatexMatcher> Matchers { get; set; } = [new PropertyMatcher(), new ComparisonMatcher()];
 
         public Natex(string pattern)
         {

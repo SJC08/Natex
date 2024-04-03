@@ -2,23 +2,23 @@
 {
     public class PropertyMatcher : NatexMatcher
     {
-        private string? name;
-        private Natex? value;
+        private string[]? pattern;
 
         public override void Parse(Natex natex)
         {
-            var s = natex.Pattern.Split(':', 2);
-            name = s[0];
-            value = new(s[1], natex);
-            Parsed = true;
+            base.Parse(natex);
+            pattern = natex.Pattern.Split(':', 2);
         }
 
         public override int Match(object? obj)
         {
-            if (name != null && value != null)
+            if (natex == null || pattern == null)
+                return 0;
+            var info = obj?.GetType().GetProperty(pattern[0]);
+            if (info != null)
             {
-                var info = obj?.GetType().GetProperty(name);
-                if (value.Match(info?.GetValue(obj)))
+                var value = info.GetValue(obj);
+                if (new Natex(pattern[1], natex).Match(value))
                     return 1;
             }
             return 0;
