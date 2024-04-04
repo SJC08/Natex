@@ -1,11 +1,8 @@
-﻿// See https://aka.ms/new-console-template for more information
-using Asjc.Natex;
+﻿using Asjc.Natex;
 
-Natex natex = new("Number:>=1");
-var b = natex.Match(new MyClass() { Number = 1});
+Natex natex = new("Text:H*");
+Foo foo = new(1, "Hi");
+var b = natex.Match(foo);
 Console.WriteLine(b);
 
-class MyClass()
-{
-    public int Number { get; set; } = 1;
-}
+record Foo(int Number, string Text);
