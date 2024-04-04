@@ -19,7 +19,14 @@ namespace Asjc.Natex
 
         public string Pattern { get; }
 
-        public List<INatexMatcher> Matchers { get; set; } = [new ComparisonMatcher(), new RegexMatcher(), new PropertyMatcher()];
+        public List<INatexMatcher> Matchers { get; set; } =
+        [
+            new StringMatcher(),
+            new ComparisonMatcher(),
+            new RegexMatcher(),
+            new PropertyMatcher(),
+            new MultiPatternMatcher()
+        ];
 
         public bool Match(object? obj)
         {
