@@ -11,15 +11,15 @@
                 return null;
         }
 
-        public int Match(object? obj, object? data)
+        public int Match(object? obj, object? exp)
         {
-            if (data is Data d)
+            if (exp is Data data)
             {
-                var info = obj?.GetType().GetProperty(d.Name);
+                var info = obj?.GetType().GetProperty(data.Name);
                 if (info != null)
                 {
                     var value = info.GetValue(obj);
-                    if (d.Natex.Match(value))
+                    if (data.Natex.Match(value))
                         return 1;
                 }
             }
