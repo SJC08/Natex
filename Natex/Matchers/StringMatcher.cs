@@ -1,15 +1,10 @@
 ﻿namespace Asjc.Natex.Matchers
 {
-    public class StringMatcher : INatexMatcher
+    public class StringMatcher : NatexMatcher
     {
-        public int Match(object? obj, object? exp)
+        public override int Match(object? obj, Natex natex)
         {
-            if (exp is Natex natex)
-            {
-                if (natex.Pattern == obj?.ToString())
-                    return 1;
-            }
-            return 0;
+            return natex.Pattern == obj?.ToString() ? 1 : 0;
         }
     }
 }

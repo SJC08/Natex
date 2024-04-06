@@ -1,31 +1,28 @@
 ﻿namespace Asjc.Natex.Matchers
 {
-    public class PropertyMatcher : INatexMatcher
+    public class PropertyMatcher : NatexMatcher<PropertyMatcher.Data>
     {
-        public object? Parse(Natex natex)
+        public override Data? Parse(Natex natex)
         {
             var arr = natex.Pattern.Split(':', 2);
             if (arr.Length == 2)
-                return new Data(arr[0], new(arr[1], natex));
+                return new(arr[0], new(arr[1], natex));
             else
                 return null;
         }
 
-        public int Match(object? obj, object? exp)
+        public override int Match(object? obj, Data data)
         {
-            if (exp is Data data)
+            var info = obj?.GetType().GetProperty(data.Name);
+            if (info != null)
             {
-                var info = obj?.GetType().GetProperty(data.Name);
-                if (info != null)
-                {
-                    var value = info.GetValue(obj);
-                    if (data.Natex.Match(value))
-                        return 1;
-                }
+                var value = info.GetValue(obj);
+                if (data.Natex.Match(value))
+                    return 1;
             }
             return 0;
         }
 
-        private record Data(string Name, Natex Natex);
+        public record Data(string Name, Natex Natex);
     }
 }

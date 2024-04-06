@@ -2,11 +2,11 @@
 
 namespace Asjc.Natex.Matchers
 {
-    public class ComparisonMatcher : INatexMatcher
+    public class ComparisonMatcher : NatexMatcher
     {
-        public int Match(object? obj, object? exp)
+        public override int Match(object? obj, Natex natex)
         {
-            if (obj is IComparable comparable && exp is Natex natex)
+            if (obj is IComparable comparable)
             {
                 string pattern = natex.Pattern;
                 if (pattern.StartsWith(">="))

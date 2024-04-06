@@ -2,9 +2,9 @@
 
 namespace Asjc.Natex.Matchers
 {
-    public class RegexMatcher : INatexMatcher
+    public class RegexMatcher : NatexMatcher<Regex>
     {
-        public object? Parse(Natex natex)
+        public override Regex? Parse(Natex natex)
         {
             try
             {
@@ -16,12 +16,10 @@ namespace Asjc.Natex.Matchers
             }
         }
 
-        public int Match(object? obj, object? exp)
+        public override int Match(object? obj, Regex data)
         {
-            if (obj is string str && exp is Regex regex)
-            {
-                return regex.IsMatch(str) ? 1 : 2;
-            }
+            if (obj is string str)
+                return data.IsMatch(str) ? 1 : 2;
             return 0;
         }
     }
