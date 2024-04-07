@@ -19,7 +19,7 @@ namespace Asjc.Natex.Matchers
         public override MatchResult Match(object? obj, Regex data)
         {
             if (obj is string str)
-                return data.IsMatch(str) ? MatchResult.Match : MatchResult.Mismatch;
+                return data.IsMatch(str) ? MatchResult.Success : MatchResult.Failure;
             return MatchResult.Default;
         }
     }

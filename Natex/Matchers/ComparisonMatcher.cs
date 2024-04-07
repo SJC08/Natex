@@ -12,32 +12,32 @@ namespace Asjc.Natex.Matchers
                 if (pattern.StartsWith(">="))
                 {
                     var value = pattern[2..].ChangeType(comparable.GetType());
-                    return value != null && comparable.CompareTo(value) >= 0 ? MatchResult.Match : MatchResult.Mismatch;
+                    return value != null && comparable.CompareTo(value) >= 0 ? MatchResult.Success : MatchResult.Failure;
                 }
                 if (pattern.StartsWith('≥'))
                 {
                     var value = pattern[1..].ChangeType(comparable.GetType());
-                    return value != null && comparable.CompareTo(value) >= 0 ? MatchResult.Match : MatchResult.Mismatch;
+                    return value != null && comparable.CompareTo(value) >= 0 ? MatchResult.Success : MatchResult.Failure;
                 }
                 if (pattern.StartsWith('>'))
                 {
                     var value = pattern[1..].ChangeType(comparable.GetType());
-                    return value != null && comparable.CompareTo(value) > 0 ? MatchResult.Match : MatchResult.Mismatch;
+                    return value != null && comparable.CompareTo(value) > 0 ? MatchResult.Success : MatchResult.Failure;
                 }
                 if (pattern.StartsWith("<="))
                 {
                     var value = pattern[2..].ChangeType(comparable.GetType());
-                    return value != null && comparable.CompareTo(value) <= 0 ? MatchResult.Match : MatchResult.Mismatch;
+                    return value != null && comparable.CompareTo(value) <= 0 ? MatchResult.Success : MatchResult.Failure;
                 }
                 if (pattern.StartsWith('≤'))
                 {
                     var value = pattern[1..].ChangeType(comparable.GetType());
-                    return value != null && comparable.CompareTo(value) <= 0 ? MatchResult.Match : MatchResult.Mismatch;
+                    return value != null && comparable.CompareTo(value) <= 0 ? MatchResult.Success : MatchResult.Failure;
                 }
                 if (pattern.StartsWith('<'))
                 {
                     var value = pattern[1..].ChangeType(comparable.GetType());
-                    return value != null && comparable.CompareTo(value) < 0 ? MatchResult.Match : MatchResult.Mismatch;
+                    return value != null && comparable.CompareTo(value) < 0 ? MatchResult.Success : MatchResult.Failure;
                 }
             }
             return 0;

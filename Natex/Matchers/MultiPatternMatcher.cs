@@ -10,7 +10,7 @@
 
         public override MatchResult Match(object? obj, IEnumerable<Natex> data)
         {
-            return data.All(n => n.Match(obj)) ? MatchResult.Match : MatchResult.Default;
+            return data.All(n => n.Match(obj)) ? MatchResult.Success : MatchResult.Default;
         }
     }
 }

@@ -4,7 +4,7 @@
     {
         public override MatchResult Match(object? obj, Natex natex)
         {
-            return natex.Pattern == obj?.ToString() ? MatchResult.Match : MatchResult.Default;
+            return natex.Pattern == obj?.ToString() ? MatchResult.Success : MatchResult.Default;
         }
     }
 }

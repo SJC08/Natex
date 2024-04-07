@@ -3,7 +3,7 @@
     public enum MatchResult
     {
         Default,
-        Match,
-        Mismatch
+        Success,
+        Failure
     }
 }

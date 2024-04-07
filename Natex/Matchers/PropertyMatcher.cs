@@ -18,7 +18,7 @@
             {
                 var value = info.GetValue(obj);
                 if (data.Natex.Match(value))
-                    return MatchResult.Match;
+                    return MatchResult.Success;
             }
             return MatchResult.Default;
         }
