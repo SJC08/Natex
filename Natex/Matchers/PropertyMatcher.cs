@@ -11,16 +11,16 @@
                 return null;
         }
 
-        public override int Match(object? obj, Data data)
+        public override MatchResult Match(object? obj, Data data)
         {
             var info = obj?.GetType().GetProperty(data.Name);
             if (info != null)
             {
                 var value = info.GetValue(obj);
                 if (data.Natex.Match(value))
-                    return 1;
+                    return MatchResult.Match;
             }
-            return 0;
+            return MatchResult.Default;
         }
 
         public record Data(string Name, Natex Natex);

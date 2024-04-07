@@ -4,6 +4,6 @@
     {
         object? Parse(Natex natex);
 
-        int Match(object? obj, object? data);
+        MatchResult Match(object? obj, object? data);
     }
 }

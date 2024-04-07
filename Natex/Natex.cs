@@ -35,9 +35,9 @@ namespace Asjc.Natex
                 map.TryAdd(matcher, matcher.Parse(this));
                 switch (matcher.Match(obj, map[matcher]))
                 {
-                    case 1:
+                    case MatchResult.Match:
                         return true;
-                    case 2:
+                    case MatchResult.Mismatch:
                         return false;
                 }
             }

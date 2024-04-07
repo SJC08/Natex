@@ -9,10 +9,10 @@
     {
         public abstract T? Parse(Natex natex);
 
-        public abstract int Match(object? obj, T data);
+        public abstract MatchResult Match(object? obj, T data);
 
         object? INatexMatcher.Parse(Natex natex) => Parse(natex);
 
-        int INatexMatcher.Match(object? obj, object? data) => data is T t ? Match(obj, t) : 0;
+        MatchResult INatexMatcher.Match(object? obj, object? data) => data is T t ? Match(obj, t) : MatchResult.Default;
     }
 }

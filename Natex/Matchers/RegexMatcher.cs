@@ -16,11 +16,11 @@ namespace Asjc.Natex.Matchers
             }
         }
 
-        public override int Match(object? obj, Regex data)
+        public override MatchResult Match(object? obj, Regex data)
         {
             if (obj is string str)
-                return data.IsMatch(str) ? 1 : 2;
-            return 0;
+                return data.IsMatch(str) ? MatchResult.Match : MatchResult.Mismatch;
+            return MatchResult.Default;
         }
     }
 }

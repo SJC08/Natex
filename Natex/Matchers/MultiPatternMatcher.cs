@@ -8,9 +8,9 @@
             return arr.Length > 1 ? arr.Select(p => new Natex(p, natex)) : null;
         }
 
-        public override int Match(object? obj, IEnumerable<Natex> data)
+        public override MatchResult Match(object? obj, IEnumerable<Natex> data)
         {
-            return data.All(n => n.Match(obj)) ? 1 : 2;
+            return data.All(n => n.Match(obj)) ? MatchResult.Match : MatchResult.Default;
         }
     }
 }
