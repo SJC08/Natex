@@ -23,6 +23,7 @@ namespace Asjc.Natex
         [
             new StringMatcher(),
             new ComparisonMatcher(),
+            new RangeMatcher(),
             new RegexMatcher(),
             new PropertyMatcher(),
             new MultiPatternMatcher()
@@ -35,9 +36,9 @@ namespace Asjc.Natex
                 map.TryAdd(matcher, matcher.Parse(this));
                 switch (matcher.Match(obj, map[matcher]))
                 {
-                    case MatchResult.Success:
+                    case NatexMatchResult.Success:
                         return true;
-                    case MatchResult.Failure:
+                    case NatexMatchResult.Failure:
                         return false;
                 }
             }

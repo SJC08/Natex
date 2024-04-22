@@ -2,9 +2,9 @@
 {
     public class StringMatcher : NatexMatcher
     {
-        public override MatchResult Match(object? obj, Natex natex)
+        public override NatexMatchResult Match(object value, Natex natex)
         {
-            return natex.Pattern == obj?.ToString() ? MatchResult.Success : MatchResult.Default;
+            return natex.Pattern == value?.ToString() ? NatexMatchResult.Success : NatexMatchResult.Default;
         }
     }
 }

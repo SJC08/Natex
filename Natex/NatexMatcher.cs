@@ -1,18 +1,23 @@
 ﻿namespace Asjc.Natex
 {
-    public abstract class NatexMatcher : NatexMatcher<Natex>
+    public abstract class NatexMatcher : NatexMatcher<Natex, object>
     {
         public override Natex? Parse(Natex natex) => natex;
     }
 
-    public abstract class NatexMatcher<T> : INatexMatcher<T>
+    public abstract class NatexMatcher<TData, TValue> : INatexMatcher<TData, TValue>
     {
-        public abstract T? Parse(Natex natex);
+        public abstract TData? Parse(Natex natex);
 
-        public abstract MatchResult Match(object? obj, T data);
+        public abstract NatexMatchResult Match(TValue obj, TData data);
 
         object? INatexMatcher.Parse(Natex natex) => Parse(natex);
 
-        MatchResult INatexMatcher.Match(object? obj, object? data) => data is T t ? Match(obj, t) : MatchResult.Default;
+        NatexMatchResult INatexMatcher.Match(object? obj, object? data)
+        {
+            if (obj is TValue v && data is TData d)
+                return Match(v, d);
+            return NatexMatchResult.Default;
+        }
     }
 }

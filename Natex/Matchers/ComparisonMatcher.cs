@@ -4,43 +4,43 @@ namespace Asjc.Natex.Matchers
 {
     public class ComparisonMatcher : NatexMatcher
     {
-        public override MatchResult Match(object? obj, Natex natex)
+        public override NatexMatchResult Match(object value, Natex natex)
         {
-            if (obj is IComparable comparable)
+            if (value is IComparable comparable)
             {
                 string pattern = natex.Pattern;
                 if (pattern.StartsWith(">="))
                 {
-                    var value = pattern[2..].ChangeType(comparable.GetType());
-                    return value != null && comparable.CompareTo(value) >= 0 ? MatchResult.Success : MatchResult.Failure;
+                    var obj = pattern[2..].ChangeType(comparable.GetType());
+                    return obj != null && comparable.CompareTo(obj) >= 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
                 }
                 if (pattern.StartsWith('≥'))
                 {
-                    var value = pattern[1..].ChangeType(comparable.GetType());
-                    return value != null && comparable.CompareTo(value) >= 0 ? MatchResult.Success : MatchResult.Failure;
+                    var obj = pattern[1..].ChangeType(comparable.GetType());
+                    return obj != null && comparable.CompareTo(obj) >= 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
                 }
                 if (pattern.StartsWith('>'))
                 {
-                    var value = pattern[1..].ChangeType(comparable.GetType());
-                    return value != null && comparable.CompareTo(value) > 0 ? MatchResult.Success : MatchResult.Failure;
+                    var obj = pattern[1..].ChangeType(comparable.GetType());
+                    return obj != null && comparable.CompareTo(obj) > 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
                 }
                 if (pattern.StartsWith("<="))
                 {
-                    var value = pattern[2..].ChangeType(comparable.GetType());
-                    return value != null && comparable.CompareTo(value) <= 0 ? MatchResult.Success : MatchResult.Failure;
+                    var obj = pattern[2..].ChangeType(comparable.GetType());
+                    return obj != null && comparable.CompareTo(obj) <= 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
                 }
                 if (pattern.StartsWith('≤'))
                 {
-                    var value = pattern[1..].ChangeType(comparable.GetType());
-                    return value != null && comparable.CompareTo(value) <= 0 ? MatchResult.Success : MatchResult.Failure;
+                    var obj = pattern[1..].ChangeType(comparable.GetType());
+                    return obj != null && comparable.CompareTo(obj) <= 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
                 }
                 if (pattern.StartsWith('<'))
                 {
-                    var value = pattern[1..].ChangeType(comparable.GetType());
-                    return value != null && comparable.CompareTo(value) < 0 ? MatchResult.Success : MatchResult.Failure;
+                    var obj = pattern[1..].ChangeType(comparable.GetType());
+                    return obj != null && comparable.CompareTo(obj) < 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
                 }
             }
-            return 0;
+            return NatexMatchResult.Default;
         }
     }
 }

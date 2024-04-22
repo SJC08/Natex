@@ -1,6 +1,6 @@
 ﻿namespace Asjc.Natex.Matchers
 {
-    public class PropertyMatcher : NatexMatcher<PropertyMatcher.Data>
+    public class PropertyMatcher : NatexMatcher<PropertyMatcher.Data, object>
     {
         public override Data? Parse(Natex natex)
         {
@@ -11,16 +11,15 @@
                 return null;
         }
 
-        public override MatchResult Match(object? obj, Data data)
+        public override NatexMatchResult Match(object? value, Data data)
         {
-            var info = obj?.GetType().GetProperty(data.Name);
+            var info = value?.GetType().GetProperty(data.Name);
             if (info != null)
             {
-                var value = info.GetValue(obj);
-                if (data.Natex.Match(value))
-                    return MatchResult.Success;
+                if (data.Natex.Match(info.GetValue(value)))
+                    return NatexMatchResult.Success;
             }
-            return MatchResult.Default;
+            return NatexMatchResult.Default;
         }
 
         public record Data(string Name, Natex Natex);

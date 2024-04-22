@@ -1,6 +1,6 @@
 ﻿namespace Asjc.Natex
 {
-    public enum MatchResult
+    public enum NatexMatchResult
     {
         Default,
         Success,

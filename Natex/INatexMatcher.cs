@@ -4,13 +4,13 @@
     {
         object? Parse(Natex natex);
 
-        MatchResult Match(object? obj, object? data);
+        NatexMatchResult Match(object? obj, object? data);
     }
 
-    public interface INatexMatcher<T> : INatexMatcher
+    public interface INatexMatcher<TData, TValue> : INatexMatcher
     {
-        new T? Parse(Natex natex);
+        new TData? Parse(Natex natex);
 
-        MatchResult Match(object? obj, T data);
+        NatexMatchResult Match(TValue value, TData data);
     }
 }

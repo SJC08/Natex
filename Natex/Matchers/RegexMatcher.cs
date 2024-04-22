@@ -2,7 +2,7 @@
 
 namespace Asjc.Natex.Matchers
 {
-    public class RegexMatcher : NatexMatcher<Regex>
+    public class RegexMatcher : NatexMatcher<Regex, string>
     {
         public override Regex? Parse(Natex natex)
         {
@@ -16,11 +16,9 @@ namespace Asjc.Natex.Matchers
             }
         }
 
-        public override MatchResult Match(object? obj, Regex data)
+        public override NatexMatchResult Match(string value, Regex data)
         {
-            if (obj is string str)
-                return data.IsMatch(str) ? MatchResult.Success : MatchResult.Failure;
-            return MatchResult.Default;
+            return data.IsMatch(value) ? NatexMatchResult.Success : NatexMatchResult.Failure;
         }
     }
 }
