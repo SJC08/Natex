@@ -5,7 +5,7 @@
         public override Natex? Parse(Natex natex) => natex;
     }
 
-    public abstract class NatexMatcher<TData, TValue> : INatexMatcher<TData, TValue>
+    public abstract class NatexMatcher<TData, TValue> : INatexMatcher
     {
         public abstract TData? Parse(Natex natex);
 
