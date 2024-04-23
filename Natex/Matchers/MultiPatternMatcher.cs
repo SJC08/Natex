@@ -1,6 +1,6 @@
 ﻿namespace Asjc.Natex.Matchers
 {
-    public class MultiPatternMatcher : NatexMatcher<IEnumerable<Natex>, object>
+    public class MultiPatternMatcher : NatexMatcher<object, IEnumerable<Natex>>
     {
         public override IEnumerable<Natex>? Parse(Natex natex)
         {

@@ -17,5 +17,9 @@ namespace Asjc.Natex.Tests
 
         [TestMethod]
         public void Natex5() => Assert.IsTrue(new Natex("Text:H* Number:1").Match(new Record("Hi", 1)));
+
+
+        [TestMethod]
+        public void Natex6() => Assert.IsTrue(new Natex("1-3").Match(2));
     }
 }

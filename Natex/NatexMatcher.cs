@@ -16,7 +16,7 @@
         }
     }
 
-    public abstract class NatexMatcher<TData, TValue> : INatexMatcher
+    public abstract class NatexMatcher<TValue, TData> : INatexMatcher
     {
         public abstract TData? Parse(Natex natex);
 

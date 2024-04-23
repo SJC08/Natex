@@ -1,6 +1,6 @@
 ﻿namespace Asjc.Natex.Matchers
 {
-    public class PropertyMatcher : NatexMatcher<PropertyMatcher.Data, object>
+    public class PropertyMatcher : NatexMatcher<object, PropertyMatcher.Data>
     {
         public override Data? Parse(Natex natex)
         {

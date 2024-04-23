@@ -1,33 +1,27 @@
-﻿namespace Asjc.Natex.Matchers
+﻿using Asjc.Extensions;
+
+namespace Asjc.Natex.Matchers
 {
-    public class RangeMatcher : NatexMatcher<double[], string>
+    public class RangeMatcher : NatexMatcher<IComparable, RangeMatcher.Data>
     {
-        public override double[]? Parse(Natex natex)
+        public override Data? Parse(Natex natex)
         {
-            double[] result = new double[2];
             var arr = natex.Pattern.Split(['-', '~']);
             if (arr.Length == 2)
-            {
-                try
-                {
-                    result[0] = double.Parse(arr[0]);
-                    result[1] = double.Parse(arr[1]);
-                }
-                catch { }
-            }
+                return new(arr[0], arr[1]);
             return null;
         }
 
-        public override NatexMatchResult Match(string value, double[] data, Natex natex)
+        public override NatexMatchResult Match(IComparable value, Data data, Natex natex)
         {
-            if (double.TryParse(value, out var d))
-            {
-                if (d >= data[0] && d <= data[1])
-                    return NatexMatchResult.Success;
-                else
-                    return NatexMatchResult.Failure;
-            }
-            return NatexMatchResult.Default;
+            var c1 = data.Min.ChangeType(value.GetType());
+            var c2 = data.Max.ChangeType(value.GetType());
+            if (value.CompareTo(c1) >= 0 && value.CompareTo(c2) <= 0)
+                return NatexMatchResult.Success;
+            else
+                return NatexMatchResult.Failure;
         }
+
+        public record Data(string Min, string Max);
     }
 }
