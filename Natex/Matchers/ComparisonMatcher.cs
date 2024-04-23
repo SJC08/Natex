@@ -4,7 +4,7 @@ namespace Asjc.Natex.Matchers
 {
     public class ComparisonMatcher : NatexMatcher
     {
-        public override NatexMatchResult Match(object value, Natex natex)
+        public override NatexMatchResult Match(object? value, Natex natex)
         {
             if (value is IComparable comparable)
             {

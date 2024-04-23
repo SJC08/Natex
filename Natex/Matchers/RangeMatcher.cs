@@ -18,7 +18,7 @@
             return null;
         }
 
-        public override NatexMatchResult Match(string value, double[] data)
+        public override NatexMatchResult Match(string value, double[] data, Natex natex)
         {
             if (double.TryParse(value, out var d))
             {

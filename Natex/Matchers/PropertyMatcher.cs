@@ -11,7 +11,7 @@
                 return null;
         }
 
-        public override NatexMatchResult Match(object? value, Data data)
+        public override NatexMatchResult Match(object? value, Data data, Natex natex)
         {
             var info = value?.GetType().GetProperty(data.Name);
             if (info != null)

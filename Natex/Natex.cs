@@ -34,7 +34,7 @@ namespace Asjc.Natex
             foreach (var matcher in Matchers)
             {
                 map.TryAdd(matcher, matcher.Parse(this));
-                switch (matcher.Match(obj, map[matcher]))
+                switch (matcher.Match(obj, map[matcher], this))
                 {
                     case NatexMatchResult.Success:
                         return true;

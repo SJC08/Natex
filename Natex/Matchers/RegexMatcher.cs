@@ -16,7 +16,7 @@ namespace Asjc.Natex.Matchers
             }
         }
 
-        public override NatexMatchResult Match(string value, Regex data)
+        public override NatexMatchResult Match(string value, Regex data, Natex natex)
         {
             return data.IsMatch(value) ? NatexMatchResult.Success : NatexMatchResult.Failure;
         }
