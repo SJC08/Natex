@@ -6,6 +6,10 @@ namespace Asjc.Natex
     {
         private readonly Dictionary<INatexMatcher, object?> map = [];
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Natex"/> class with the specified pattern.
+        /// </summary>
+        /// <param name="pattern">The Natex pattern to match.</param>
         public Natex(string pattern)
         {
             Pattern = pattern;
