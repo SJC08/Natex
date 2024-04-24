@@ -6,22 +6,23 @@
         {
             var arr = natex.Pattern.Split(':', 2);
             if (arr.Length == 2)
-                return new(arr[0], new(arr[1], natex));
-            else
-                return null;
+                return new(arr[0], arr[1]);
+            return null;
         }
 
         public override NatexMatchResult Match(object? value, Data data, Natex natex)
         {
-            var info = value?.GetType().GetProperty(data.Name);
-            if (info != null)
+            var names = data.Name.Split('.');
+            foreach (var name in names)
             {
-                if (data.Natex.Match(info.GetValue(value)))
-                    return NatexMatchResult.Success;
+                var property = value?.GetType().GetProperty(name);
+                value = property?.GetValue(value);
             }
+            if (new Natex(data.Pattern, natex).Match(value))
+                return NatexMatchResult.Success;
             return NatexMatchResult.Default;
         }
 
-        public record Data(string Name, Natex Natex);
+        public record Data(string Name, string Pattern);
     }
 }

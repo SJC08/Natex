@@ -10,32 +10,32 @@ namespace Asjc.Natex.Matchers
             if (pattern.StartsWith(">="))
             {
                 var obj = pattern[2..].ChangeType(value.GetType());
-                return obj != null && value.CompareTo(obj) >= 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
+                return value.CompareTo(obj) >= 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
             }
             if (pattern.StartsWith('≥'))
             {
                 var obj = pattern[1..].ChangeType(value.GetType());
-                return obj != null && value.CompareTo(obj) >= 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
+                return value.CompareTo(obj) >= 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
             }
             if (pattern.StartsWith('>'))
             {
                 var obj = pattern[1..].ChangeType(value.GetType());
-                return obj != null && value.CompareTo(obj) > 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
+                return value.CompareTo(obj) > 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
             }
             if (pattern.StartsWith("<="))
             {
                 var obj = pattern[2..].ChangeType(value.GetType());
-                return obj != null && value.CompareTo(obj) <= 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
+                return value.CompareTo(obj) <= 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
             }
             if (pattern.StartsWith('≤'))
             {
                 var obj = pattern[1..].ChangeType(value.GetType());
-                return obj != null && value.CompareTo(obj) <= 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
+                return value.CompareTo(obj) <= 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
             }
             if (pattern.StartsWith('<'))
             {
                 var obj = pattern[1..].ChangeType(value.GetType());
-                return obj != null && value.CompareTo(obj) < 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
+                return value.CompareTo(obj) < 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
             }
             return NatexMatchResult.Default;
         }
