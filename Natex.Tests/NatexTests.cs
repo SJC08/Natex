@@ -26,5 +26,11 @@ namespace Asjc.Natex.Tests
 
         [TestMethod]
         public void Natex8() => Assert.IsTrue(new Natex("#Today").Match(DateTime.Today));
+
+        [TestMethod]
+        public void Natex9() => Assert.IsTrue(new Natex(">2024/1/1 00:00:00").Match(new DateTime(2024, 1, 1, 12, 0, 0)));
+
+        [TestMethod]
+        public void Natex10() => Assert.IsTrue(new Natex("Record { Text = A, Number = 1 }").Match(new Record("A", 1)));
     }
 }
