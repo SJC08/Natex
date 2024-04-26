@@ -2,6 +2,9 @@
 
 namespace Asjc.Natex.Matchers
 {
+    /// <summary>
+    /// A NatexMatcher for comparing value with the given one.
+    /// </summary>
     public class ComparisonMatcher : NatexMatcher<IComparable>
     {
         public override NatexMatchResult Match(IComparable value, Natex natex)

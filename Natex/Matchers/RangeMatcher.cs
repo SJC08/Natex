@@ -2,6 +2,9 @@
 
 namespace Asjc.Natex.Matchers
 {
+    /// <summary>
+    /// A NatexMatcher for determining whether a value is in a particular range.
+    /// </summary>
     public class RangeMatcher : NatexMatcher<IComparable, RangeMatcher.Data>
     {
         public override Data? Parse(Natex natex)

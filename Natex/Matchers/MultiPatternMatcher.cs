@@ -1,5 +1,8 @@
 ﻿namespace Asjc.Natex.Matchers
 {
+    /// <summary>
+    /// A NatexMatcher for handling multiple patterns.
+    /// </summary>
     public class MultiPatternMatcher : NatexMatcher<object, IEnumerable<Natex>>
     {
         public override IEnumerable<Natex>? Parse(Natex natex)
