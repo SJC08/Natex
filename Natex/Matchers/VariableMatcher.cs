@@ -1,4 +1,6 @@
-﻿namespace Asjc.Natex.Matchers
+﻿using Asjc.Extensions;
+
+namespace Asjc.Natex.Matchers
 {
     /// <summary>
     /// A NatexMatcher for replacing variables.
@@ -19,7 +21,7 @@
         {
             var str = natex.Pattern;
             foreach (var item in Variables)
-                str = str.Replace($"[{item.Item1}]", item.Item2);
+                str = str.Replace($"[{item.Item1}]", item.Item2, true);
             return str == natex.Pattern ? null : str;
         }
 
