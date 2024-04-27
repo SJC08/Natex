@@ -2,6 +2,9 @@
 
 namespace Asjc.Natex.Matchers
 {
+    /// <summary>
+    /// A NatexMatcher for matching via Regex.
+    /// </summary>
     public class RegexMatcher : NatexMatcher<string, Regex>
     {
         public override Regex? Parse(Natex natex)

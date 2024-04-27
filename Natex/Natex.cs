@@ -25,7 +25,7 @@ namespace Asjc.Natex
 
         public List<INatexMatcher> Matchers { get; set; } =
         [
-            new TemplateMatcher(),
+            new VariableMatcher(),
             new StringMatcher(),
             new ComparisonMatcher(),
             new RangeMatcher(),

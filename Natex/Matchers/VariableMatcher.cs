@@ -1,19 +1,25 @@
 ﻿namespace Asjc.Natex.Matchers
 {
-    public class TemplateMatcher : NatexMatcher<object, string>
+    /// <summary>
+    /// A NatexMatcher for replacing variables.
+    /// </summary>
+    public class VariableMatcher : NatexMatcher<object, string>
     {
-        public List<(string, string)> Templates { get; set; } =
+        public List<(string, string)> Variables { get; set; } =
         [
             ("Now", DateTime.Now.ToString()),
             ("UtcNow", DateTime.UtcNow.ToString()),
-            ("Today", DateTime.Today.ToString())
+            ("Today", DateTime.Today.ToString()),
+            ("Random", new Random().Next().ToString()),
+            ("MachineName", Environment.MachineName),
+            ("UserName", Environment.UserName)
         ];
 
         public override string? Parse(Natex natex)
         {
             var str = natex.Pattern;
-            foreach (var item in Templates)
-                str = str.Replace($"#{item.Item1}", item.Item2);
+            foreach (var item in Variables)
+                str = str.Replace($"[{item.Item1}]", item.Item2);
             return str == natex.Pattern ? null : str;
         }
 
