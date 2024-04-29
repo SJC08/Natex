@@ -13,7 +13,7 @@
             return null;
         }
 
-        public override NatexMatchResult Match(object? value, Data data, Natex natex)
+        public override NatexMatchResult Match(object? value, ref Data data, Natex natex)
         {
             var names = data.Name.Split('.');
             foreach (var name in names)

@@ -15,14 +15,14 @@
         /// <summary>
         /// Matches the provided object against the given <see cref="Natex"/>.
         /// </summary>
-        /// <param name="value">The object to match.</param>
+        /// <param name="value">The value to match.</param>
         /// <param name="natex">The readable data for matching.</param>
         /// <returns>A <see cref="NatexMatchResult"/> indicating the match result.</returns>
         public abstract NatexMatchResult Match(TValue value, Natex natex);
 
         object? INatexMatcher.Parse(Natex natex) => null;
 
-        NatexMatchResult INatexMatcher.Match(object? value, object? data, Natex natex)
+        NatexMatchResult INatexMatcher.Match(object? value, ref object? data, Natex natex)
         {
             if (value is TValue v)
                 return Match(v, natex);
@@ -47,18 +47,18 @@
         /// <summary>
         /// Matches the provided object of type <typeparamref name="TValue"/> against the given <see cref="Natex"/> and readable data of type <typeparamref name="TData"/>.
         /// </summary>
-        /// <param name="value">The object to match.</param>
+        /// <param name="value">The value to match.</param>
         /// <param name="data">The readable data for matching.</param>
         /// <param name="natex"></param>
         /// <returns>A <see cref="NatexMatchResult"/> indicating the match result.</returns>
-        public abstract NatexMatchResult Match(TValue value, TData data, Natex natex);
+        public abstract NatexMatchResult Match(TValue value, ref TData data, Natex natex);
 
         object? INatexMatcher.Parse(Natex natex) => Parse(natex);
 
-        NatexMatchResult INatexMatcher.Match(object? value, object? data, Natex natex)
+        NatexMatchResult INatexMatcher.Match(object? value, ref object? data, Natex natex)
         {
             if (value is TValue v && data is TData d)
-                return Match(v, d, natex);
+                return Match(v, ref d, natex);
             return NatexMatchResult.Default;
         }
     }

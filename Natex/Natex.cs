@@ -45,13 +45,16 @@ namespace Asjc.Natex
             foreach (var matcher in Matchers)
             {
                 map.TryAdd(matcher, matcher.Parse(this));
-                switch (matcher.Match(obj, map[matcher], this))
+                object? data = map[matcher];
+                switch (matcher.Match(obj, ref data, this))
                 {
+                    // No return for Default.
                     case NatexMatchResult.Success:
                         return true;
                     case NatexMatchResult.Failure:
                         return false;
                 }
+                map[matcher] = data; // Update.
             }
             return false;
         }
