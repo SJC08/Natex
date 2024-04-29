@@ -19,6 +19,8 @@ namespace Asjc.Natex
         {
             Pattern = pattern;
             Matchers = natex.Matchers;
+            MatchMode = natex.MatchMode;
+            CaseInsensitive = natex.CaseInsensitive;
         }
 
         public string Pattern { get; }
@@ -33,6 +35,10 @@ namespace Asjc.Natex
             new PropertyMatcher(),
             new MultiPatternMatcher()
         ];
+
+        public NatexMatchMode MatchMode { get; set; } = NatexMatchMode.Exact;
+
+        public bool CaseInsensitive { get; set; } = true;
 
         public bool Match(object? obj)
         {

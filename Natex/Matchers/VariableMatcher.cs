@@ -21,7 +21,7 @@ namespace Asjc.Natex.Matchers
         {
             var str = natex.Pattern;
             foreach (var item in Variables)
-                str = str.Replace($"[{item.Item1}]", item.Item2, true);
+                str = str.Replace($"[{item.Item1}]", item.Item2, natex.CaseInsensitive);
             return str == natex.Pattern ? null : str;
         }
 

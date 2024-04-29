@@ -1,4 +1,6 @@
-﻿namespace Asjc.Natex.Matchers
+﻿using Asjc.Extensions;
+
+namespace Asjc.Natex.Matchers
 {
     /// <summary>
     /// A NatexMatcher for matching the string representation of an object.
@@ -7,7 +9,20 @@
     {
         public override NatexMatchResult Match(object value, Natex natex)
         {
-            return natex.Pattern == value?.ToString() ? NatexMatchResult.Success : NatexMatchResult.Default;
+            if (natex.MatchMode == NatexMatchMode.Exact)
+            {
+                if (natex.Pattern.Equals(value.ToString(), natex.CaseInsensitive))
+                    return NatexMatchResult.Success;
+                else
+                    return NatexMatchResult.Default;
+            }
+            else
+            {
+                if (natex.Pattern.Contains(value.ToString()!, natex.CaseInsensitive))
+                    return NatexMatchResult.Success;
+                else
+                    return NatexMatchResult.Default;
+            }
         }
     }
 }
