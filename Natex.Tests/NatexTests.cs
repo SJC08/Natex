@@ -16,7 +16,7 @@ namespace Asjc.Natex.Tests
         public void Natex4() => Assert.IsTrue(new Natex("A.*D").Match("ABCD"));
 
         [TestMethod]
-        public void Natex5() => Assert.IsTrue(new Natex("Text:H* Number:1").Match(new Record("Hi", 1)));
+        public void Natex5() => Assert.IsTrue(new Natex("Text:H. Number:1").Match(new Record("Hi", 1)));
 
         [TestMethod]
         public void Natex6() => Assert.IsTrue(new Natex("1-3").Match(2));
@@ -32,5 +32,34 @@ namespace Asjc.Natex.Tests
 
         [TestMethod]
         public void Natex10() => Assert.IsTrue(new Natex("Record { Text = A, Number = 1 }").Match(new Record("A", 1)));
+
+        [TestMethod]
+        public void Natex11()
+        {
+            Natex natex = new("\\");
+            natex.Match("");
+            natex.Match("");
+        }
+
+        [TestMethod]
+        public void Natex12()
+        {
+            Natex natex = new("A");
+            Assert.IsFalse(natex.Match("AB"));
+            natex.Mode = NatexMode.Partial;
+            Assert.IsTrue(natex.Match("AB"));
+        }
+
+        [TestMethod]
+        public void Natex13() => Assert.IsTrue(new Natex("0") { Mode = NatexMode.Partial }.Match("101"));
+
+        [TestMethod]
+        public void Natex14()
+        {
+            Natex natex = new("A");
+            Assert.IsTrue(natex.Match("a"));
+            natex.CaseInsensitive = false;
+            Assert.IsFalse(natex.Match("a"));
+        }
     }
 }

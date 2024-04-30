@@ -22,10 +22,13 @@
 
         object? INatexMatcher.Parse(Natex natex) => null;
 
-        NatexMatchResult INatexMatcher.Match(object? value, ref object? data, Natex natex)
+        bool INatexMatcher.ShouldParse(bool first, object? data, Natex natex) => false;
+
+        NatexMatchResult INatexMatcher.Match(object? value, object? data, Natex natex)
         {
             if (value is TValue v)
                 return Match(v, natex);
+            // Matcher may not support TValue.
             return NatexMatchResult.Default;
         }
     }
@@ -44,6 +47,8 @@
         /// <returns>The parsed readable data.</returns>
         public abstract TData? Parse(Natex natex);
 
+        public virtual bool ShouldParse(bool first, TData? data, Natex natex) => first;
+
         /// <summary>
         /// Matches the provided object of type <typeparamref name="TValue"/> against the given <see cref="Natex"/> and readable data of type <typeparamref name="TData"/>.
         /// </summary>
@@ -51,14 +56,25 @@
         /// <param name="data">The readable data for matching.</param>
         /// <param name="natex"></param>
         /// <returns>A <see cref="NatexMatchResult"/> indicating the match result.</returns>
-        public abstract NatexMatchResult Match(TValue value, ref TData data, Natex natex);
+        public abstract NatexMatchResult Match(TValue value, TData data, Natex natex);
 
         object? INatexMatcher.Parse(Natex natex) => Parse(natex);
 
-        NatexMatchResult INatexMatcher.Match(object? value, ref object? data, Natex natex)
+        bool INatexMatcher.ShouldParse(bool first, object? data, Natex natex)
+        {
+            return data switch
+            {
+                TData v => ShouldParse(first, v, natex),
+                null => ShouldParse(first, default, natex),
+                _ => false // This behavior may change.
+            };
+        }
+
+        NatexMatchResult INatexMatcher.Match(object? value, object? data, Natex natex)
         {
             if (value is TValue v && data is TData d)
-                return Match(v, ref d, natex);
+                return Match(v, d, natex);
+            // Matcher may not support TValue and data may be null.
             return NatexMatchResult.Default;
         }
     }

@@ -5,13 +5,15 @@ namespace Asjc.Natex.Matchers
     /// <summary>
     /// A NatexMatcher for matching via Regex.
     /// </summary>
-    public class RegexMatcher : NatexMatcher<string, Regex>
+    public class RegexMatcher : NatexMatcher<string, RegexMatcher.Data>
     {
-        public override Regex? Parse(Natex natex)
+        public override Data? Parse(Natex natex)
         {
             try
             {
-                return new Regex(natex.Pattern);
+                return natex.Mode == NatexMode.Exact
+                    ? new(new($"^{natex.Pattern}$"), natex.Mode)
+                    : new(new(natex.Pattern), natex.Mode);
             }
             catch
             {
@@ -19,9 +21,16 @@ namespace Asjc.Natex.Matchers
             }
         }
 
-        public override NatexMatchResult Match(string value, ref Regex data, Natex natex)
+        public override bool ShouldParse(bool first, Data? data, Natex natex)
         {
-            return data.IsMatch(value) ? NatexMatchResult.Success : NatexMatchResult.Failure;
+            return first || data?.Mode != natex.Mode;
         }
+
+        public override NatexMatchResult Match(string value, Data data, Natex natex)
+        {
+            return data.Regex.IsMatch(value) ? NatexMatchResult.Success : NatexMatchResult.Failure;
+        }
+
+        public record Data(Regex Regex, NatexMode Mode);
     }
 }

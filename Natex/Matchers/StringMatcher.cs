@@ -9,7 +9,7 @@ namespace Asjc.Natex.Matchers
     {
         public override NatexMatchResult Match(object value, Natex natex)
         {
-            if (natex.MatchMode == NatexMatchMode.Exact)
+            if (natex.Mode == NatexMode.Exact)
             {
                 if (natex.Pattern.Equals(value.ToString(), natex.CaseInsensitive))
                     return NatexMatchResult.Success;
@@ -18,7 +18,7 @@ namespace Asjc.Natex.Matchers
             }
             else
             {
-                if (natex.Pattern.Contains(value.ToString()!, natex.CaseInsensitive))
+                if (natex.Pattern.Contains(value.ToString(), natex.CaseInsensitive))
                     return NatexMatchResult.Success;
                 else
                     return NatexMatchResult.Default;

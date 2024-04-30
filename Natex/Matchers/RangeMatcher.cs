@@ -15,7 +15,7 @@ namespace Asjc.Natex.Matchers
             return null;
         }
 
-        public override NatexMatchResult Match(IComparable value, ref Data data, Natex natex)
+        public override NatexMatchResult Match(IComparable value, Data data, Natex natex)
         {
             var c1 = data.Min.ChangeType(value.GetType());
             var c2 = data.Max.ChangeType(value.GetType());

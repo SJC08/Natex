@@ -15,16 +15,27 @@ namespace Asjc.Natex
             Pattern = pattern;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Natex"/> class with the specified pattern and settings copied from an existing <see cref="Natex"/> object.
+        /// </summary>
+        /// <param name="pattern"></param>
+        /// <param name="natex"></param>
         public Natex(string pattern, Natex natex)
         {
             Pattern = pattern;
             Matchers = natex.Matchers;
-            MatchMode = natex.MatchMode;
+            Mode = natex.Mode;
             CaseInsensitive = natex.CaseInsensitive;
         }
 
+        /// <summary>
+        /// Gets the Natex pattern.
+        /// </summary>
         public string Pattern { get; }
 
+        /// <summary>
+        /// Gets or sets the list of Natex matchers.
+        /// </summary>
         public List<INatexMatcher> Matchers { get; set; } =
         [
             new VariableMatcher(),
@@ -36,17 +47,23 @@ namespace Asjc.Natex
             new MultiPatternMatcher()
         ];
 
-        public NatexMatchMode MatchMode { get; set; } = NatexMatchMode.Exact;
+        /// <summary>
+        /// Gets or sets the Natex matching mode.
+        /// </summary>
+        public NatexMode Mode { get; set; } = NatexMode.Exact;
 
+        /// <summary>
+        /// Gets or sets a <see langword="bool"/> indicating whether matching is case insensitive.
+        /// </summary>
         public bool CaseInsensitive { get; set; } = true;
 
-        public bool Match(object? obj)
+        public bool Match(object? value)
         {
             foreach (var matcher in Matchers)
             {
-                map.TryAdd(matcher, matcher.Parse(this));
-                object? data = map[matcher];
-                switch (matcher.Match(obj, ref data, this))
+                Parse(matcher);
+                object? data = map.GetValueOrDefault(matcher);
+                switch (matcher.Match(value, data, this))
                 {
                     // No return for Default.
                     case NatexMatchResult.Success:
@@ -54,9 +71,21 @@ namespace Asjc.Natex
                     case NatexMatchResult.Failure:
                         return false;
                 }
-                map[matcher] = data; // Update.
             }
             return false;
+        }
+
+        public void Parse()
+        {
+            foreach (var matcher in Matchers)
+                Parse(matcher);
+        }
+
+        public void Parse(INatexMatcher matcher)
+        {
+            bool first = !map.TryGetValue(matcher, out object? data);
+            if (matcher.ShouldParse(first, data, this))
+                map[matcher] = matcher.Parse(this);
         }
 
         public override string ToString() => Pattern;

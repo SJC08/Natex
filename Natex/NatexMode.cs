@@ -1,6 +1,6 @@
 ﻿namespace Asjc.Natex
 {
-    public enum NatexMatchMode
+    public enum NatexMode
     {
         Exact,
         Partial
