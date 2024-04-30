@@ -16,7 +16,7 @@
         /// Matches the provided object against the given <see cref="Natex"/>.
         /// </summary>
         /// <param name="value">The value to match.</param>
-        /// <param name="natex">The readable data for matching.</param>
+        /// <param name="natex">The <see cref="Natex"/> for matching.</param>
         /// <returns>A <see cref="NatexMatchResult"/> indicating the match result.</returns>
         public abstract NatexMatchResult Match(TValue value, Natex natex);
 
@@ -47,6 +47,7 @@
         /// <returns>The parsed readable data.</returns>
         public abstract TData? Parse(Natex natex);
 
+        /// <inheritdoc cref="INatexMatcher.ShouldParse" />
         public virtual bool ShouldParse(bool first, TData? data, Natex natex) => first;
 
         /// <summary>
@@ -54,7 +55,7 @@
         /// </summary>
         /// <param name="value">The value to match.</param>
         /// <param name="data">The readable data for matching.</param>
-        /// <param name="natex"></param>
+        /// <param name="natex">The <see cref="Natex"/> for matching.</param>
         /// <returns>A <see cref="NatexMatchResult"/> indicating the match result.</returns>
         public abstract NatexMatchResult Match(TValue value, TData data, Natex natex);
 
