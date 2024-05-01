@@ -40,7 +40,7 @@ namespace Asjc.Natex.Matchers
                 var obj = pattern[1..].ChangeType(value.GetType());
                 return value.CompareTo(obj) < 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
             }
-            return NatexMatchResult.Default;
+            return NatexMatchResult.Default; // Perhaps other matchers can handle this pattern.
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Asjc.Natex.Matchers
     {
         public override Data? Parse(Natex natex)
         {
-            var arr = natex.Pattern.Split(['-', '~']);
+            var arr = natex.Pattern.Split(['-', '~', '↔']);
             if (arr.Length == 2)
                 return new(arr[0], arr[1]);
             return null;

@@ -83,6 +83,7 @@ namespace Asjc.Natex
 
         public void Parse(INatexMatcher matcher)
         {
+            // Try to get the existing value.
             bool first = !map.TryGetValue(matcher, out object? data);
             if (matcher.ShouldParse(first, data, this))
                 map[matcher] = matcher.Parse(this);

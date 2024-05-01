@@ -8,7 +8,7 @@
 
 In essence, most of the matching and other work is performed by `INatexMatcher`.
 
-The library already implements Matchers such as `VariableMatcher`、`StringMatcher`、`ComparisonMatcher`、`RangeMatcher`、`RegexMatcher`、`PropertyMatcher`、`MultiPatternMatcher`, and so on.
+The library already implements Matchers such as `VariableMatcher`, `StringMatcher`, `ComparisonMatcher`, `RangeMatcher`, `RegexMatcher`, `PropertyMatcher`, `MultiPatternMatcher`, and so on.
 
 You can also create your **own** Matcher. You can get started quickly with the `NatexMatcher`, `NatexMatcher<TValue>`, `NatexMatcher<TValue, TData>` **class**, or the `INatexMatcher` **interface**.
 

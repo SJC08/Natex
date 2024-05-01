@@ -47,7 +47,7 @@
         /// <returns>The parsed readable data.</returns>
         public abstract TData? Parse(Natex natex);
 
-        /// <inheritdoc cref="INatexMatcher.ShouldParse" />
+        /// <inheritdoc cref="INatexMatcher.ShouldParse"/>
         public virtual bool ShouldParse(bool first, TData? data, Natex natex) => first;
 
         /// <summary>
@@ -66,8 +66,7 @@
             return data switch
             {
                 TData v => ShouldParse(first, v, natex),
-                null => ShouldParse(first, default, natex),
-                _ => false // This behavior may change.
+                _ => ShouldParse(first, default, natex) // This behavior may change.
             };
         }
 
