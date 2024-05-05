@@ -9,14 +9,13 @@
         {
             var arr = natex.Pattern.Split(':', 2);
             if (arr.Length == 2)
-                return new(arr[0], arr[1]);
+                return new(arr[0].Split('.'), arr[1]);
             return null;
         }
 
         public override NatexMatchResult Match(object? value, Data data, Natex natex)
         {
-            var names = data.Name.Split('.');
-            foreach (var name in names)
+            foreach (var name in data.Names)
             {
                 var property = value?.GetType().GetProperty(name);
                 value = property?.GetValue(value);
@@ -26,6 +25,6 @@
             return NatexMatchResult.Default;
         }
 
-        public record Data(string Name, string Pattern);
+        public record Data(string[] Names, string Pattern);
     }
 }
