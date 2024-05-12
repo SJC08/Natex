@@ -5,26 +5,48 @@
     /// </summary>
     public class PropertyMatcher : NatexMatcher<object, PropertyMatcher.Data>
     {
+        public List<string[]> DefaultProperties = [];
+
         public override Data? Parse(Natex natex)
         {
             var arr = natex.Pattern.Split(':', 2);
-            if (arr.Length == 2)
-                return new(arr[0].Split('.'), arr[1]);
-            return null;
+            return arr.Length switch
+            {
+                1 => new(null, arr[0]),
+                2 => new(arr[0].Split('.'), arr[1]),
+                _ => null
+            };
         }
 
-        public override NatexMatchResult Match(object? value, Data data, Natex natex)
+        public override NatexMatchResult Match(object value, Data data, Natex natex)
         {
-            foreach (var name in data.Names)
+            object? current = null;
+            if (data.Property == null)
             {
-                var property = value?.GetType().GetProperty(name);
-                value = property?.GetValue(value);
+                foreach (var property in DefaultProperties)
+                    Handle(property);
             }
-            if (new Natex(data.Pattern, natex).Match(value))
+            else
+            {
+                Handle(data.Property);
+            }
+            if (new Natex(data.Pattern, natex).Match(current))
                 return NatexMatchResult.Success;
             return NatexMatchResult.Default;
+
+            void Handle(string[] property)
+            {
+                current = value; // Reset.
+                foreach (var name in property)
+                {
+                    if (current == null)
+                        break;
+                    var info = current.GetType().GetProperty(name);
+                    current = info?.GetValue(current);
+                }
+            }
         }
 
-        public record Data(string[] Names, string Pattern);
+        public record Data(string[]? Property, string Pattern);
     }
 }

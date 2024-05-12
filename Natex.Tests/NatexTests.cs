@@ -1,3 +1,5 @@
+using Asjc.Natex.Matchers;
+
 namespace Asjc.Natex.Tests
 {
     [TestClass]
@@ -60,6 +62,19 @@ namespace Asjc.Natex.Tests
             Assert.IsTrue(natex.Match("a"));
             natex.CaseInsensitive = false;
             Assert.IsFalse(natex.Match("a"));
+        }
+
+        [TestMethod]
+        public void Natex15()
+        {
+            Natex natex = new("3");
+            foreach (var matcher in natex.Matchers)
+            {
+                if (matcher is PropertyMatcher pm)
+                    pm.DefaultProperties = [["Foo"], ["Text", "Length"]];
+
+            }
+            Assert.IsTrue(natex.Match(new Record("ABC", 1)));
         }
     }
 }
