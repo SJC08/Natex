@@ -20,30 +20,23 @@
 
         public override NatexMatchResult Match(object value, Data data, Natex natex)
         {
-            object? current = null;
+            natex = new Natex(data.Pattern, natex);
             if (data.Property == null)
-            {
-                foreach (var property in DefaultProperties)
-                    Handle(property);
-            }
+                return DefaultProperties.Any(Handle) ? NatexMatchResult.Success : NatexMatchResult.Default;
             else
-            {
-                Handle(data.Property);
-            }
-            if (new Natex(data.Pattern, natex).Match(current))
-                return NatexMatchResult.Success;
-            return NatexMatchResult.Default;
+                return Handle(data.Property) ? NatexMatchResult.Success : NatexMatchResult.Failure;
 
-            void Handle(string[] property)
+            bool Handle(string[] property)
             {
-                current = value; // Reset.
+                object? current = value;
                 foreach (var name in property)
                 {
                     if (current == null)
-                        break;
+                        return false;
                     var info = current.GetType().GetProperty(name);
                     current = info?.GetValue(current);
                 }
+                return natex.Match(current);
             }
         }
 

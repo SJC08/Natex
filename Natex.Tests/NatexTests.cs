@@ -71,7 +71,7 @@ namespace Asjc.Natex.Tests
             foreach (var matcher in natex.Matchers)
             {
                 if (matcher is PropertyMatcher pm)
-                    pm.DefaultProperties = [["Foo"], ["Text", "Length"]];
+                    pm.DefaultProperties = [["Foo"], ["Text", "Length"], ["Foo"]];
 
             }
             Assert.IsTrue(natex.Match(new Record("ABC", 1)));
