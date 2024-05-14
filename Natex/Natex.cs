@@ -42,6 +42,7 @@ namespace Asjc.Natex
             new StringMatcher(),
             new ComparisonMatcher(),
             new RangeMatcher(),
+            new ListMatcher(),
             new RegexMatcher(),
             new MultiPatternMatcher(),
             new PropertyMatcher(),

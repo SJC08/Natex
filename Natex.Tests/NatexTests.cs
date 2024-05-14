@@ -76,5 +76,15 @@ namespace Asjc.Natex.Tests
             }
             Assert.IsTrue(natex.Match(new Record("ABC", 1)));
         }
+
+
+        [TestMethod]
+        public void Natex16() => Assert.IsTrue(new Natex("a,b").Match(new List<string>() { "a", "b" }));
+
+        [TestMethod]
+        public void Natex17() => Assert.IsFalse(new Natex("b,a").Match(new List<string>() { "a", "b" }));
+
+        [TestMethod]
+        public void Natex18() => Assert.IsTrue(new Natex("0,>0") { Mode = NatexMode.Partial }.Match(new int[] { 0, 1, 2 }));
     }
 }
