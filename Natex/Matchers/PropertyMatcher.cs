@@ -14,7 +14,7 @@
             {
                 1 => new(null, arr[0]),
                 2 => new(arr[0].Split('.'), arr[1]),
-                _ => null
+                _ => null // When?
             };
         }
 
