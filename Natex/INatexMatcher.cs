@@ -27,7 +27,11 @@
         /// <param name="value">The value to match.</param>
         /// <param name="data">The readable data for matching.</param>
         /// <param name="natex">The <see cref="Natex"/> for matching.</param>
-        /// <returns>A <see cref="NatexMatchResult"/> indicating the match result.</returns>
-        NatexMatchResult Match(object? value, object? data, Natex natex);
+        /// <returns>
+        /// <see langword="true"/> if the match succeeds;
+        /// <see langword="false"/> if the match fails;
+        /// otherwise, <see langword="null"/>.
+        /// </returns>
+        bool? Match(object? value, object? data, Natex natex);
     }
 }

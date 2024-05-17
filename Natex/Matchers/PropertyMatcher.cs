@@ -18,13 +18,13 @@
             };
         }
 
-        public override NatexMatchResult Match(object value, Data data, Natex natex)
+        public override bool? Match(object value, Data data, Natex natex)
         {
             natex = new Natex(data.Pattern, natex);
             if (data.Property == null)
-                return DefaultProperties.Any(Handle) ? NatexMatchResult.Success : NatexMatchResult.Default;
+                return DefaultProperties.Any(Handle) ? true : null;
             else
-                return Handle(data.Property) ? NatexMatchResult.Success : NatexMatchResult.Failure;
+                return Handle(data.Property);
 
             bool Handle(string[] property)
             {

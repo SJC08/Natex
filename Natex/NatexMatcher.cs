@@ -17,19 +17,23 @@
         /// </summary>
         /// <param name="value">The value to match.</param>
         /// <param name="natex">The <see cref="Natex"/> for matching.</param>
-        /// <returns>A <see cref="NatexMatchResult"/> indicating the match result.</returns>
-        public abstract NatexMatchResult Match(TValue value, Natex natex);
+        /// <returns>
+        /// <see langword="true"/> if the match succeeds;
+        /// <see langword="false"/> if the match fails;
+        /// otherwise, <see langword="null"/>.
+        /// </returns>
+        public abstract bool? Match(TValue value, Natex natex);
 
         object? INatexMatcher.Parse(Natex natex) => null;
 
         bool INatexMatcher.ShouldParse(bool first, object? data, Natex natex) => false;
 
-        NatexMatchResult INatexMatcher.Match(object? value, object? data, Natex natex)
+        bool? INatexMatcher.Match(object? value, object? data, Natex natex)
         {
             if (value is TValue v)
                 return Match(v, natex);
             // Matcher may not support TValue.
-            return NatexMatchResult.Default;
+            return null;
         }
     }
 
@@ -56,8 +60,12 @@
         /// <param name="value">The value to match.</param>
         /// <param name="data">The readable data for matching.</param>
         /// <param name="natex">The <see cref="Natex"/> for matching.</param>
-        /// <returns>A <see cref="NatexMatchResult"/> indicating the match result.</returns>
-        public abstract NatexMatchResult Match(TValue value, TData data, Natex natex);
+        /// <returns>
+        /// <see langword="true"/> if the match succeeds;
+        /// <see langword="false"/> if the match fails;
+        /// otherwise, <see langword="null"/>.
+        /// </returns>
+        public abstract bool? Match(TValue value, TData data, Natex natex);
 
         object? INatexMatcher.Parse(Natex natex) => Parse(natex);
 
@@ -70,12 +78,12 @@
             };
         }
 
-        NatexMatchResult INatexMatcher.Match(object? value, object? data, Natex natex)
+        bool? INatexMatcher.Match(object? value, object? data, Natex natex)
         {
             if (value is TValue v && data is TData d)
                 return Match(v, d, natex);
             // Matcher may not support TValue and data may be null.
-            return NatexMatchResult.Default;
+            return null;
         }
     }
 }

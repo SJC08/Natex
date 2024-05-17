@@ -7,21 +7,21 @@ namespace Asjc.Natex.Matchers
     /// </summary>
     public class StringMatcher : NatexMatcher
     {
-        public override NatexMatchResult Match(object value, Natex natex)
+        public override bool? Match(object value, Natex natex)
         {
             if (natex.Mode == NatexMode.Exact)
             {
                 if (natex.Pattern.Equals(value.ToString(), natex.CaseInsensitive))
-                    return NatexMatchResult.Success;
+                    return true;
                 else
-                    return NatexMatchResult.Default;
+                    return null;
             }
             else
             {
                 if (natex.Pattern.Contains(value.ToString(), natex.CaseInsensitive))
-                    return NatexMatchResult.Success;
+                    return true;
                 else
-                    return NatexMatchResult.Default;
+                    return null;
             }
         }
     }

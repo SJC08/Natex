@@ -25,9 +25,9 @@ namespace Asjc.Natex.Matchers
             return str == natex.Pattern ? null : str; // Be careful not to make circular calls.
         }
 
-        public override NatexMatchResult Match(object value, string data, Natex natex)
+        public override bool? Match(object value, string data, Natex natex)
         {
-            return new Natex(data, natex).Match(value) ? NatexMatchResult.Success : NatexMatchResult.Failure;
+            return new Natex(data, natex).Match(value);
         }
     }
 }

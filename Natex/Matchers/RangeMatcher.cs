@@ -15,14 +15,11 @@ namespace Asjc.Natex.Matchers
             return null;
         }
 
-        public override NatexMatchResult Match(IComparable value, Data data, Natex natex)
+        public override bool? Match(IComparable value, Data data, Natex natex)
         {
             var c1 = data.Min.ChangeType(value.GetType());
             var c2 = data.Max.ChangeType(value.GetType());
-            if (value.CompareTo(c1) >= 0 && value.CompareTo(c2) <= 0)
-                return NatexMatchResult.Success;
-            else
-                return NatexMatchResult.Failure;
+            return value.CompareTo(c1) >= 0 && value.CompareTo(c2) <= 0;
         }
 
         public record Data(string Min, string Max);

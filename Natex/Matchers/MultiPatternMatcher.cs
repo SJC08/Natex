@@ -11,9 +11,9 @@
             return arr.Length > 1 ? arr.Select(p => new Natex(p, natex)) : null;
         }
 
-        public override NatexMatchResult Match(object value, IEnumerable<Natex> data, Natex natex)
+        public override bool? Match(object value, IEnumerable<Natex> data, Natex natex)
         {
-            return data.All(n => n.Match(value)) ? NatexMatchResult.Success : NatexMatchResult.Default;
+            return data.All(n => n.Match(value)) ? true : null;
         }
     }
 }

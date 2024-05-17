@@ -7,40 +7,40 @@ namespace Asjc.Natex.Matchers
     /// </summary>
     public class ComparisonMatcher : NatexMatcher<IComparable>
     {
-        public override NatexMatchResult Match(IComparable value, Natex natex)
+        public override bool? Match(IComparable value, Natex natex)
         {
             string pattern = natex.Pattern;
             if (pattern.StartsWith(">="))
             {
                 var obj = pattern[2..].ChangeType(value.GetType());
-                return value.CompareTo(obj) >= 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
+                return value.CompareTo(obj) >= 0;
             }
             if (pattern.StartsWith('≥'))
             {
                 var obj = pattern[1..].ChangeType(value.GetType());
-                return value.CompareTo(obj) >= 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
+                return value.CompareTo(obj) >= 0;
             }
             if (pattern.StartsWith('>'))
             {
                 var obj = pattern[1..].ChangeType(value.GetType());
-                return value.CompareTo(obj) > 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
+                return value.CompareTo(obj) > 0;
             }
             if (pattern.StartsWith("<="))
             {
                 var obj = pattern[2..].ChangeType(value.GetType());
-                return value.CompareTo(obj) <= 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
+                return value.CompareTo(obj) <= 0;
             }
             if (pattern.StartsWith('≤'))
             {
                 var obj = pattern[1..].ChangeType(value.GetType());
-                return value.CompareTo(obj) <= 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
+                return value.CompareTo(obj) <= 0;
             }
             if (pattern.StartsWith('<'))
             {
                 var obj = pattern[1..].ChangeType(value.GetType());
-                return value.CompareTo(obj) < 0 ? NatexMatchResult.Success : NatexMatchResult.Failure;
+                return value.CompareTo(obj) < 0;
             }
-            return NatexMatchResult.Default; // Perhaps other matchers can handle this pattern.
+            return null; // Perhaps other matchers can handle this pattern.
         }
     }
 }

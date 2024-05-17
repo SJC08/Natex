@@ -10,17 +10,17 @@ namespace Asjc.Natex.Matchers
             return natexes.Count > 0 ? natexes : null;
         }
 
-        public override NatexMatchResult Match(IList value, List<Natex> data, Natex natex)
+        public override bool? Match(IList value, List<Natex> data, Natex natex)
         {
             if (natex.Mode == NatexMode.Exact)
             {
                 // Sensitive to sequence.
                 if (value.Count != data.Count)
-                    return NatexMatchResult.Default;
+                    return null;
                 for (int i = 0; i < value.Count; i++)
                 {
                     if (!data[i].Match(value[i]))
-                        return NatexMatchResult.Default;
+                        return null;
                 }
             }
             else
@@ -38,10 +38,10 @@ namespace Asjc.Natex.Matchers
                         }
                     }
                     if (!found)
-                        return NatexMatchResult.Default;
+                        return null;
                 }
             }
-            return NatexMatchResult.Success;
+            return true;
         }
     }
 }

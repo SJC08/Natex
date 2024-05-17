@@ -64,14 +64,9 @@ namespace Asjc.Natex
             {
                 Parse(matcher);
                 object? data = map.GetValueOrDefault(matcher);
-                switch (matcher.Match(value, data, this))
-                {
-                    // No return for Default.
-                    case NatexMatchResult.Success:
-                        return true;
-                    case NatexMatchResult.Failure:
-                        return false;
-                }
+                bool? result = matcher.Match(value, data, this);
+                if (result != null) // No return for null.
+                    return (bool)result;
             }
             return false;
         }

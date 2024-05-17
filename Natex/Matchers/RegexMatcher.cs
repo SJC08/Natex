@@ -26,9 +26,9 @@ namespace Asjc.Natex.Matchers
             return first || data?.Mode != natex.Mode;
         }
 
-        public override NatexMatchResult Match(string value, Data data, Natex natex)
+        public override bool? Match(string value, Data data, Natex natex)
         {
-            return data.Regex.IsMatch(value) ? NatexMatchResult.Success : NatexMatchResult.Failure;
+            return data.Regex.IsMatch(value);
         }
 
         public record Data(Regex Regex, NatexMode Mode);
