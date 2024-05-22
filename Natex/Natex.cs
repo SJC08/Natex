@@ -1,4 +1,5 @@
-﻿using Asjc.Natex.Matchers;
+﻿using Asjc.Collections.Extended;
+using Asjc.Natex.Matchers;
 
 namespace Asjc.Natex
 {
@@ -36,7 +37,7 @@ namespace Asjc.Natex
         /// <summary>
         /// Gets or sets the list of Natex matchers.
         /// </summary>
-        public List<INatexMatcher> Matchers { get; set; } =
+        public KeyedList<INatexMatcher> Matchers { get; set; } =
         [
             new VariableMatcher(),
             new StringMatcher(),
