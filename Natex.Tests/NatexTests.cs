@@ -68,7 +68,7 @@ namespace Asjc.Natex.Tests
         public void Natex15()
         {
             Natex natex = new("3");
-            ((PropertyMatcher)natex.Matchers[typeof(PropertyMatcher)]).DefaultProperties = [["Foo"], ["Text", "Length"], ["Foo"]];
+            natex.Matchers.Get<PropertyMatcher>().DefaultProperties = [["Foo"], ["Text", "Length"], ["Foo"]];
             Assert.IsTrue(natex.Match(new Record("ABC", 1)));
         }
 

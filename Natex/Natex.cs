@@ -37,7 +37,7 @@ namespace Asjc.Natex
         /// <summary>
         /// Gets or sets the list of Natex matchers.
         /// </summary>
-        public KeyedList<INatexMatcher> Matchers { get; set; } =
+        public UniqueTypeList<INatexMatcher> Matchers { get; set; } =
         [
             new VariableMatcher(),
             new StringMatcher(),

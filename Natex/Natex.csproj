@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>0.3.1</Version>
+    <Version>0.3.2</Version>
     <Description>Provides a quick way to match objects</Description>
     <PackageIcon>Icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Asjc.Collections.Extended" Version="1.1.0-beta" />
+    <PackageReference Include="Asjc.Collections.Extended" Version="1.1.0" />
     <PackageReference Include="Asjc.Extensions" Version="1.0.7" />
   </ItemGroup>
 
