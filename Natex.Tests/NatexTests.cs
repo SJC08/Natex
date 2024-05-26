@@ -81,5 +81,8 @@ namespace Asjc.Natex.Tests
 
         [TestMethod]
         public void Natex18() => Assert.IsTrue(new Natex("0,>0") { Mode = NatexMode.Partial }.Match(new int[] { 0, 1, 2 }));
+
+        [TestMethod]
+        public void Natex19() => Assert.IsFalse(new Natex(">foo").Match(0));
     }
 }

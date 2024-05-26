@@ -13,32 +13,32 @@ namespace Asjc.Natex.Matchers
             if (pattern.StartsWith(">="))
             {
                 var obj = pattern[2..].ChangeType(value.GetType());
-                return value.CompareTo(obj) >= 0;
+                return obj is null ? null : value.CompareTo(obj) >= 0;
             }
             if (pattern.StartsWith('≥'))
             {
                 var obj = pattern[1..].ChangeType(value.GetType());
-                return value.CompareTo(obj) >= 0;
+                return obj is null ? null : value.CompareTo(obj) >= 0;
             }
             if (pattern.StartsWith('>'))
             {
                 var obj = pattern[1..].ChangeType(value.GetType());
-                return value.CompareTo(obj) > 0;
+                return obj is null ? null : value.CompareTo(obj) > 0;
             }
             if (pattern.StartsWith("<="))
             {
                 var obj = pattern[2..].ChangeType(value.GetType());
-                return value.CompareTo(obj) <= 0;
+                return obj is null ? null : value.CompareTo(obj) <= 0;
             }
             if (pattern.StartsWith('≤'))
             {
                 var obj = pattern[1..].ChangeType(value.GetType());
-                return value.CompareTo(obj) <= 0;
+                return obj is null ? null : value.CompareTo(obj) <= 0;
             }
             if (pattern.StartsWith('<'))
             {
                 var obj = pattern[1..].ChangeType(value.GetType());
-                return value.CompareTo(obj) < 0;
+                return obj is null ? null : value.CompareTo(obj) < 0;
             }
             return null; // Perhaps other matchers can handle this pattern.
         }

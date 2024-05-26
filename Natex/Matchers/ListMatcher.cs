@@ -22,26 +22,15 @@ namespace Asjc.Natex.Matchers
                     if (!data[i].Match(value[i]))
                         return null;
                 }
+                return true;
             }
             else
             {
                 // Inclusion is enough.
-                foreach (var d in data)
-                {
-                    bool found = false;
-                    foreach (var v in value)
-                    {
-                        if (d.Match(v))
-                        {
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (!found)
-                        return null;
-                }
+                if (data.All(d => value.Cast<object>().Any(d.Match)))
+                    return true;
+                return null;
             }
-            return true;
         }
     }
 }
