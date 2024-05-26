@@ -40,6 +40,7 @@ namespace Asjc.Natex
         public UniqueTypeList<INatexMatcher> Matchers { get; set; } =
         [
             new VariableMatcher(),
+            new NegationMatcher(),
             new StringMatcher(),
             new ComparisonMatcher(),
             new RangeMatcher(),

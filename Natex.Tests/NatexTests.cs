@@ -84,5 +84,8 @@ namespace Asjc.Natex.Tests
 
         [TestMethod]
         public void Natex19() => Assert.IsFalse(new Natex(">foo").Match(0));
+
+        [TestMethod]
+        public void Natex20() => Assert.IsTrue(new Natex("!1").Match(0));
     }
 }
