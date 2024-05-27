@@ -3,15 +3,15 @@
     /// <summary>
     /// A NatexMatcher for handling multiple patterns.
     /// </summary>
-    public class MultiPatternMatcher : NatexMatcher<object, IEnumerable<Natex>>
+    public class MultiPatternMatcher : NatexMatcher<object, Natex[]>
     {
-        public override IEnumerable<Natex>? Parse(Natex natex)
+        public override Natex[]? Parse(Natex natex)
         {
             var arr = natex.Pattern.Split(" ");
-            return arr.Length > 1 ? arr.Select(p => new Natex(p, natex)) : null;
+            return arr.Length > 1 ? arr.Select(p => new Natex(p, natex)).ToArray() : null;
         }
 
-        public override bool? Match(object value, IEnumerable<Natex> data, Natex natex)
+        public override bool? Match(object value, Natex[] data, Natex natex)
         {
             return data.All(n => n.Match(value)) ? true : null;
         }

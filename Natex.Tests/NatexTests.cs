@@ -87,5 +87,14 @@ namespace Asjc.Natex.Tests
 
         [TestMethod]
         public void Natex20() => Assert.IsTrue(new Natex("!1").Match(0));
+
+        [TestMethod]
+        public void Natex21() => Assert.IsTrue(new Natex("null").Match(null));
+
+        [TestMethod]
+        public void Natex22() => Assert.IsTrue(new Natex("empty").Match(""));
+
+        [TestMethod]
+        public void Natex23() => Assert.IsTrue(new Natex("empty").Match(new int[] {}));
     }
 }
