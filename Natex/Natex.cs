@@ -74,17 +74,17 @@ namespace Asjc.Natex
             return false;
         }
 
-        public void Parse()
+        public void Parse(bool force = false)
         {
             foreach (var matcher in Matchers)
-                Parse(matcher);
+                Parse(matcher, force);
         }
 
-        public void Parse(INatexMatcher matcher)
+        public void Parse(INatexMatcher matcher, bool force = false)
         {
             // Try to get the existing value.
             bool first = !map.TryGetValue(matcher, out object? data);
-            if (matcher.ShouldParse(first, data, this))
+            if (force || matcher.ShouldParse(first, data, this))
                 map[matcher] = matcher.Parse(this);
         }
 
