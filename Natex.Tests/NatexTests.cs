@@ -72,7 +72,6 @@ namespace Asjc.Natex.Tests
             Assert.IsTrue(natex.Match(new Record("ABC", 1)));
         }
 
-
         [TestMethod]
         public void Natex16() => Assert.IsTrue(new Natex("a,b").Match(new List<string>() { "a", "b" }));
 

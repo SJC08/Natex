@@ -19,8 +19,8 @@ namespace Asjc.Natex
         /// <summary>
         /// Initializes a new instance of the <see cref="Natex"/> class with the specified pattern and settings copied from an existing <see cref="Natex"/> object.
         /// </summary>
-        /// <param name="pattern"></param>
-        /// <param name="natex"></param>
+        /// <param name="pattern">The Natex pattern to match.</param>
+        /// <param name="natex">An existing <see cref="Natex"/> object from which to copy settings.</param>
         public Natex(string pattern, Natex natex)
         {
             Pattern = pattern;
@@ -74,12 +74,21 @@ namespace Asjc.Natex
             return false;
         }
 
+        /// <summary>
+        /// Use all matchers to parse.
+        /// </summary>
+        /// <param name="force"><see langword="true"/> if <see cref="INatexMatcher.ShouldParse"/> should not be performed to check; otherwise, <see langword="false"/>.</param>
         public void Parse(bool force = false)
         {
             foreach (var matcher in Matchers)
                 Parse(matcher, force);
         }
 
+        /// <summary>
+        /// Use the specified matcher to parse.
+        /// </summary>
+        /// <param name="matcher">The specified matcher for matching.</param>
+        /// <param name="force"><see langword="true"/> if <see cref="INatexMatcher.ShouldParse"/> should not be performed to check; otherwise, <see langword="false"/>.</param>
         public void Parse(INatexMatcher matcher, bool force = false)
         {
             // Try to get the existing value.

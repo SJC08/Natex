@@ -38,7 +38,7 @@
     }
 
     /// <summary>
-    ///  Base abstract class for Natex matching with specified value and data types.
+    /// Base abstract class for Natex matching with specified value and data types.
     /// </summary>
     /// <typeparam name="TValue">The type of value used to match</typeparam>
     /// <typeparam name="TData">The type of data used to match</typeparam>
