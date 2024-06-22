@@ -10,7 +10,7 @@
         /// </summary>
         /// <param name="natex">The <see cref="Natex"/> to parse.</param>
         /// <returns>The parsed readable data.</returns>
-        object? Parse(Natex natex);
+        object? Parse(Natex natex) => default;
 
         /// <summary>
         /// Determines if the parsing should be performed.
@@ -19,7 +19,7 @@
         /// <param name="data">The existing readable data (typically from the last parsing), or <see langword="default"/> if unavailable.</param>
         /// <param name="natex">The <see cref="Natex"/> to parse.</param>
         /// <returns><see langword="true"/> if parsing should occur; otherwise, <see langword="false"/>.</returns>
-        bool ShouldParse(bool first, object? data, Natex natex);
+        bool ShouldParse(bool first, object? data, Natex natex) => default;
 
         /// <summary>
         /// Matches the provided object against the given <see cref="Natex"/> and readable data.

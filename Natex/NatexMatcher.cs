@@ -24,10 +24,6 @@
         /// </returns>
         public abstract bool? Match(TValue value, Natex natex);
 
-        object? INatexMatcher.Parse(Natex natex) => null;
-
-        bool INatexMatcher.ShouldParse(bool first, object? data, Natex natex) => false;
-
         bool? INatexMatcher.Match(object? value, object? data, Natex natex)
         {
             if (value is TValue v)

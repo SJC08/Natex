@@ -3,13 +3,8 @@ using System.Collections;
 
 namespace Asjc.Natex.Matchers
 {
-    // A question about generics confused me, so I'm using the interface here instead.
     public class NullOrEmptyMatcher : INatexMatcher
     {
-        public object? Parse(Natex natex) => null;
-
-        public bool ShouldParse(bool first, object? data, Natex natex) => false;
-
         public bool? Match(object? value, object? data, Natex natex)
         {
             if (natex.Pattern.Equals("null", natex.CaseInsensitive))
