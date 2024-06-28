@@ -10,41 +10,50 @@ namespace Asjc.Natex.Matchers
         public override bool? Match(IComparable value, Natex natex)
         {
             string pattern = natex.Pattern;
-            if (pattern.StartsWith(">="))
-            {
-                var obj = pattern[2..].ChangeType(value.GetType());
-                return obj is null ? null : value.CompareTo(obj) >= 0;
-            }
-            if (pattern.StartsWith('≥'))
-            {
-                var obj = pattern[1..].ChangeType(value.GetType());
-                return obj is null ? null : value.CompareTo(obj) >= 0;
-            }
-            if (pattern.StartsWith('>'))
-            {
-                var obj = pattern[1..].ChangeType(value.GetType());
-                return obj is null ? null : value.CompareTo(obj) > 0;
-            }
             if (pattern.StartsWith("<="))
-            {
-                var obj = pattern[2..].ChangeType(value.GetType());
-                return obj is null ? null : value.CompareTo(obj) <= 0;
-            }
+                return CompareLessThanOrEqual(pattern[2..], value);
             if (pattern.StartsWith('≤'))
-            {
-                var obj = pattern[1..].ChangeType(value.GetType());
-                return obj is null ? null : value.CompareTo(obj) <= 0;
-            }
+                return CompareLessThanOrEqual(pattern[1..], value);
             if (pattern.StartsWith('<'))
-            {
-                var obj = pattern[1..].ChangeType(value.GetType());
-                return obj is null ? null : value.CompareTo(obj) < 0;
-            }
+                return CompareLessThan(pattern[1..], value);
+            if (pattern.StartsWith(">="))
+                return CompareGreaterThanOrEqual(pattern[2..], value);
+            if (pattern.StartsWith('≥'))
+                return CompareGreaterThanOrEqual(pattern[1..], value);
+            if (pattern.StartsWith('>'))
+                return CompareGreaterThan(pattern[1..], value);
             else
-            {
-                var obj = pattern.ChangeType(value.GetType());
-                return obj is null || value.CompareTo(obj) != 0 ? null : true;
-            }
+                return CompareEquality(pattern, value);
+        }
+
+        public virtual bool? CompareLessThan(string input, IComparable value)
+        {
+            var obj = input.ChangeType(value.GetType());
+            return obj is null ? null : value.CompareTo(obj) < 0;
+        }
+
+        public virtual bool? CompareGreaterThan(string input, IComparable value)
+        {
+            var obj = input.ChangeType(value.GetType());
+            return obj is null ? null : value.CompareTo(obj) > 0;
+        }
+
+        public virtual bool? CompareLessThanOrEqual(string input, IComparable value)
+        {
+            var obj = input.ChangeType(value.GetType());
+            return obj is null ? null : value.CompareTo(obj) <= 0;
+        }
+
+        public virtual bool? CompareGreaterThanOrEqual(string input, IComparable value)
+        {
+            var obj = input.ChangeType(value.GetType());
+            return obj is null ? null : value.CompareTo(obj) >= 0;
+        }
+
+        public virtual bool? CompareEquality(string input, IComparable value)
+        {
+            var obj = input.ChangeType(value.GetType());
+            return obj is null || value.CompareTo(obj) != 0 ? null : true;
         }
     }
 }
