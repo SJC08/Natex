@@ -39,6 +39,7 @@ namespace Asjc.Natex
         /// </summary>
         public UniqueTypeList<INatexMatcher> Matchers { get; set; } =
         [
+            new AnythingMatcher(),
             new NullOrEmptyMatcher(),
             new VariableMatcher(),
             new NegationMatcher(),
