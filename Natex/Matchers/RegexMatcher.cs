@@ -11,9 +11,10 @@ namespace Asjc.Natex.Matchers
         {
             try
             {
-                return natex.Mode == NatexMode.Exact
-                    ? new(new($"^{natex.Pattern}$"), natex.Mode)
-                    : new(new(natex.Pattern), natex.Mode);
+                var pattern = natex.Mode == NatexMode.Exact ? $"^{natex.Pattern}$" : natex.Pattern;
+                var options = natex.CaseInsensitive ? RegexOptions.IgnoreCase : RegexOptions.None;
+                var regex = new Regex(pattern, options);
+                return new(regex, natex.Mode, natex.CaseInsensitive);
             }
             catch
             {
@@ -23,7 +24,7 @@ namespace Asjc.Natex.Matchers
 
         public override bool ShouldParse(bool first, Data? data, Natex natex)
         {
-            return first || data?.Mode != natex.Mode;
+            return first || data?.Mode != natex.Mode || data?.CaseInsensitive != natex.CaseInsensitive;
         }
 
         public override bool? Match(string value, Data data, Natex natex)
@@ -31,6 +32,6 @@ namespace Asjc.Natex.Matchers
             return data.Regex.IsMatch(value);
         }
 
-        public record Data(Regex Regex, NatexMode Mode);
+        public record Data(Regex Regex, NatexMode Mode, bool CaseInsensitive);
     }
 }
