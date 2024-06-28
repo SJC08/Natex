@@ -40,7 +40,11 @@ namespace Asjc.Natex.Matchers
                 var obj = pattern[1..].ChangeType(value.GetType());
                 return obj is null ? null : value.CompareTo(obj) < 0;
             }
-            return null; // Perhaps other matchers can handle this pattern.
+            else
+            {
+                var obj = pattern.ChangeType(value.GetType());
+                return obj is null || value.CompareTo(obj) != 0 ? null : true;
+            }
         }
     }
 }
