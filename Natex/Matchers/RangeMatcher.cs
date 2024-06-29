@@ -17,9 +17,10 @@ namespace Asjc.Natex.Matchers
 
         public override bool? Match(IComparable value, Data data, Natex natex)
         {
-            var c1 = data.Min.ChangeType(value.GetType());
-            var c2 = data.Max.ChangeType(value.GetType());
-            return value.CompareTo(c1) >= 0 && value.CompareTo(c2) <= 0;
+            Type type = value.GetType();
+            if (data.Min.ConvertTo(type, out var min) && data.Max.ConvertTo(type, out var max))
+                return value.CompareTo(min) >= 0 && value.CompareTo(max) <= 0;
+            return false;
         }
 
         public record Data(string Min, string Max);

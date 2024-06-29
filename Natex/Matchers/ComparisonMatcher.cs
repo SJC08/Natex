@@ -26,34 +26,19 @@ namespace Asjc.Natex.Matchers
                 return CompareEquality(pattern, value);
         }
 
-        public virtual bool? CompareLessThan(string input, IComparable value)
-        {
-            var obj = input.ChangeType(value.GetType());
-            return obj is null ? null : value.CompareTo(obj) < 0;
-        }
+        public virtual bool? CompareLessThan(string input, IComparable value) 
+            => input.ConvertTo(value.GetType(), out var result) ? value.CompareTo(result) < 0 : null;
 
-        public virtual bool? CompareGreaterThan(string input, IComparable value)
-        {
-            var obj = input.ChangeType(value.GetType());
-            return obj is null ? null : value.CompareTo(obj) > 0;
-        }
+        public virtual bool? CompareGreaterThan(string input, IComparable value) 
+            => input.ConvertTo(value.GetType(), out var result) ? value.CompareTo(result) > 0 : null;
 
-        public virtual bool? CompareLessThanOrEqual(string input, IComparable value)
-        {
-            var obj = input.ChangeType(value.GetType());
-            return obj is null ? null : value.CompareTo(obj) <= 0;
-        }
+        public virtual bool? CompareLessThanOrEqual(string input, IComparable value) 
+            => input.ConvertTo(value.GetType(), out var result) ? value.CompareTo(result) <= 0 : null;
 
-        public virtual bool? CompareGreaterThanOrEqual(string input, IComparable value)
-        {
-            var obj = input.ChangeType(value.GetType());
-            return obj is null ? null : value.CompareTo(obj) >= 0;
-        }
+        public virtual bool? CompareGreaterThanOrEqual(string input, IComparable value) 
+            => input.ConvertTo(value.GetType(), out var result) ? value.CompareTo(result) >= 0 : null;
 
         public virtual bool? CompareEquality(string input, IComparable value)
-        {
-            var obj = input.ChangeType(value.GetType());
-            return obj is null || value.CompareTo(obj) != 0 ? null : true;
-        }
+            => input.ConvertTo(value.GetType(), out var result) && value.CompareTo(result) == 0 ? true : null;
     }
 }
