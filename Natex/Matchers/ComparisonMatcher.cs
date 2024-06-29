@@ -26,19 +26,19 @@ namespace Asjc.Natex.Matchers
                 return CompareEquality(pattern, value);
         }
 
-        public virtual bool? CompareLessThan(string input, IComparable value) 
+        protected virtual bool? CompareLessThan(string input, IComparable value) 
             => input.ConvertTo(value.GetType(), out var result) ? value.CompareTo(result) < 0 : null;
 
-        public virtual bool? CompareGreaterThan(string input, IComparable value) 
+        protected virtual bool? CompareGreaterThan(string input, IComparable value) 
             => input.ConvertTo(value.GetType(), out var result) ? value.CompareTo(result) > 0 : null;
 
-        public virtual bool? CompareLessThanOrEqual(string input, IComparable value) 
+        protected virtual bool? CompareLessThanOrEqual(string input, IComparable value) 
             => input.ConvertTo(value.GetType(), out var result) ? value.CompareTo(result) <= 0 : null;
 
-        public virtual bool? CompareGreaterThanOrEqual(string input, IComparable value) 
+        protected virtual bool? CompareGreaterThanOrEqual(string input, IComparable value) 
             => input.ConvertTo(value.GetType(), out var result) ? value.CompareTo(result) >= 0 : null;
 
-        public virtual bool? CompareEquality(string input, IComparable value)
+        protected virtual bool? CompareEquality(string input, IComparable value)
             => input.ConvertTo(value.GetType(), out var result) && value.CompareTo(result) == 0 ? true : null;
     }
 }
