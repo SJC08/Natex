@@ -7,7 +7,7 @@ namespace Asjc.Natex.Matchers
     /// </summary>
     public class PropertyMatcher : NatexMatcher<object, PropertyMatcher.Data>
     {
-        public List<string[]> DefaultProperties = [];
+        public List<string[]> DefaultPaths = [];
 
         public override Data? Parse(Natex natex)
         {
@@ -26,23 +26,23 @@ namespace Asjc.Natex.Matchers
         public override bool? Match(object value, Data data, Natex natex)
         {
             natex = new Natex(data.Pattern, natex);
-            if (data.Property == null)
-                return DefaultProperties.Any(Handle) ? true : null;
+            if (data.Path == null)
+                return DefaultPaths.Any(Handle) ? true : null;
             else
-                return Handle(data.Property);
+                return Handle(data.Path);
 
-            bool Handle(string[] property)
+            bool Handle(string[] path)
             {
-                if (GetValue(value, property, out var v))
+                if (GetValue(value, path, out var v))
                     return natex.Match(v);
                 return false;
             }
         }
 
-        protected virtual bool GetValue(object? obj, string[] property, out object? value)
+        protected virtual bool GetValue(object? obj, string[] path, out object? value)
         {
             value = obj;
-            foreach (var name in property)
+            foreach (var name in path)
             {
                 if (value == null)
                     return false;
@@ -52,6 +52,6 @@ namespace Asjc.Natex.Matchers
             return true;
         }
 
-        public record Data(string[]? Property, string Pattern, BindingFlags Flags);
+        public record Data(string[]? Path, string Pattern, BindingFlags Flags);
     }
 }
