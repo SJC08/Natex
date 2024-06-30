@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace Asjc.Natex.Matchers
 {
@@ -8,7 +7,9 @@ namespace Asjc.Natex.Matchers
     /// </summary>
     public class PropertyMatcher : NatexMatcher<object, PropertyMatcher.Data>
     {
-        public List<string[]> DefaultPaths = [];
+        public List<string[]> DefaultPaths { get; set; } = [];
+
+        public bool AlwaysMatchDefault { get; set; } = true;
 
         public override Data? Parse(Natex natex)
         {
@@ -27,10 +28,14 @@ namespace Asjc.Natex.Matchers
         public override bool? Match(object value, Data data, Natex natex)
         {
             natex = new Natex(data.Pattern, natex);
-            if (data.Path == null)
+            if (data.Path is null)
                 return DefaultPaths.Any(Handle) ? true : null;
-            else
-                return Handle(data.Path);
+            if (Handle(data.Path))
+                return true;
+            if (AlwaysMatchDefault)
+                return DefaultPaths.Any(Handle);
+            return false;
+
 
             bool Handle(string[] path)
             {
