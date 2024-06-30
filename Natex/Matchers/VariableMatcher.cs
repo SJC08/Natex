@@ -12,6 +12,8 @@ namespace Asjc.Natex.Matchers
             ("Now", DateTime.Now.ToString),
             ("UtcNow", DateTime.UtcNow.ToString),
             ("Today", DateTime.Today.ToString),
+            ("Date", DateTime.Now.ToShortDateString),
+            ("Time", DateTime.Now.ToShortTimeString),
             ("Random", new Random().Next().ToString),
             ("MachineName", ()=> Environment.MachineName),
             ("UserName",()=> Environment.UserName)
