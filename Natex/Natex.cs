@@ -89,7 +89,7 @@ namespace Asjc.Natex
         /// Use the specified matcher to parse.
         /// </summary>
         /// <param name="matcher">The specified matcher for matching.</param>
-        /// <param name="force"><see langword="true"/> if <see cref="INatexMatcher.ShouldParse"/> should not be performed to check; otherwise, <see langword="false"/>.</param>
+        /// <param name="force"><see langword="true"/> if <see cref="INatexMatcher.ShouldParse"/> is needed to check; otherwise, <see langword="false"/>.</param>
         public void Parse(INatexMatcher matcher, bool force = false)
         {
             // Try to get the existing value.
