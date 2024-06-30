@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.IO;
+using System.Reflection;
 
 namespace Asjc.Natex.Matchers
 {
@@ -33,23 +34,15 @@ namespace Asjc.Natex.Matchers
 
             bool Handle(string[] path)
             {
-                if (GetValue(value, path, out var v))
-                    return natex.Match(v);
-                return false;
+                object? obj = value;
+                foreach (var name in path)
+                {
+                    if (obj == null) return false;
+                    var info = obj.GetType().GetProperty(name, data.Flags);
+                    obj = info?.GetValue(obj);
+                }
+                return natex.Match(obj);
             }
-        }
-
-        protected virtual bool GetValue(object? obj, string[] path, out object? value)
-        {
-            value = obj;
-            foreach (var name in path)
-            {
-                if (value == null)
-                    return false;
-                var info = value.GetType().GetProperty(name);
-                value = info?.GetValue(value);
-            }
-            return true;
         }
 
         public record Data(string[]? Path, string Pattern, BindingFlags Flags);

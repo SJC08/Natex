@@ -112,5 +112,8 @@ namespace Asjc.Natex.Tests
             Assert.IsTrue(natex.Match(DateTime.Today));
             Assert.IsTrue(natex.Match(DateTime.Today));
         }
+
+        [TestMethod]
+        public void Natex28() => Assert.IsTrue(new Natex("number:0").Match(new Record("", 0)));
     }
 }
