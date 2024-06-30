@@ -14,6 +14,22 @@ namespace Asjc.Natex
         public Natex(string pattern)
         {
             Pattern = pattern;
+            Matchers =
+            [
+                new AnythingMatcher(),
+                new NullOrEmptyMatcher(),
+                new VariableMatcher(),
+                new NegationMatcher(),
+                new StringMatcher(),
+                new ComparisonMatcher(),
+                new RangeMatcher(),
+                new ListMatcher(),
+                new RegexMatcher(),
+                new MultiPatternMatcher(),
+                new PropertyMatcher(),
+            ];
+            Mode = NatexMode.Exact;
+            CaseInsensitive = true;
         }
 
         /// <summary>
@@ -24,7 +40,7 @@ namespace Asjc.Natex
         public Natex(string pattern, Natex natex)
         {
             Pattern = pattern;
-            Matchers = natex.Matchers;
+            Matchers = new(pairs: natex.Matchers);
             Mode = natex.Mode;
             CaseInsensitive = natex.CaseInsensitive;
         }
@@ -37,30 +53,17 @@ namespace Asjc.Natex
         /// <summary>
         /// Gets or sets the list of Natex matchers.
         /// </summary>
-        public UniqueTypeList<INatexMatcher> Matchers { get; set; } =
-        [
-            new AnythingMatcher(),
-            new NullOrEmptyMatcher(),
-            new VariableMatcher(),
-            new NegationMatcher(),
-            new StringMatcher(),
-            new ComparisonMatcher(),
-            new RangeMatcher(),
-            new ListMatcher(),
-            new RegexMatcher(),
-            new MultiPatternMatcher(),
-            new PropertyMatcher(),
-        ];
+        public UniqueTypeList<INatexMatcher> Matchers { get; set; }
 
         /// <summary>
         /// Gets or sets the Natex matching mode.
         /// </summary>
-        public NatexMode Mode { get; set; } = NatexMode.Exact;
+        public NatexMode Mode { get; set; }
 
         /// <summary>
         /// Gets or sets a <see langword="bool"/> indicating whether matching is case insensitive.
         /// </summary>
-        public bool CaseInsensitive { get; set; } = true;
+        public bool CaseInsensitive { get; set; }
 
         public bool Match(object? value)
         {

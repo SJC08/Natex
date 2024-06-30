@@ -104,5 +104,13 @@ namespace Asjc.Natex.Tests
 
         [TestMethod]
         public void Natex26() => Assert.IsTrue(new Natex("6/1").Match(DateTime.Parse("6/1")));
+
+        [TestMethod]
+        public void Natex27()
+        {
+            Natex natex = new("{Date}");
+            Assert.IsTrue(natex.Match(DateTime.Today));
+            Assert.IsTrue(natex.Match(DateTime.Today));
+        }
     }
 }

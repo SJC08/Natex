@@ -15,15 +15,29 @@ namespace Asjc.Natex.Matchers
             ("Date", DateTime.Now.ToShortDateString),
             ("Time", DateTime.Now.ToShortTimeString),
             ("Random", new Random().Next().ToString),
-            ("MachineName", ()=> Environment.MachineName),
-            ("UserName",()=> Environment.UserName)
+            ("MachineName", () => Environment.MachineName),
+            ("UserName",() => Environment.UserName)
+        ];
+
+        public List<string> Formats { get; set; } =
+        [
+            "({0})",
+            "[{0}]",
+            "{{{0}}}",
+            "<{0}>"
         ];
 
         public override bool? Match(object value, Natex natex)
         {
             string str = natex.Pattern;
-            foreach (var item in Variables)
-                str = str.Replace($"<{item.Item1}>", item.Item2(), natex.CaseInsensitive);
+            foreach (var f in Formats)
+            {
+                foreach (var v in Variables)
+                {
+                    string oldValue = string.Format(f, v.Item1);
+                    str = str.Replace(oldValue, v.Item2(), natex.CaseInsensitive);
+                }
+            }
             // Be careful not to make circular calls.
             natex = new(str, natex);
             natex.Matchers.Remove(this);
