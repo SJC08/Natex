@@ -1,6 +1,6 @@
 ﻿namespace Asjc.Natex.Matchers
 {
-    public class NegationMatcher : NatexMatcher
+    public class NegationMatcher : NatexBasicMatcher
     {
         public override bool? Match(Natex natex, object value)
         {

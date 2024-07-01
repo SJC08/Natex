@@ -5,7 +5,7 @@ namespace Asjc.Natex.Matchers
     /// <summary>
     /// A NatexMatcher for replacing variables.
     /// </summary>
-    public class VariableMatcher : NatexMatcher
+    public class VariableMatcher : NatexBasicMatcher
     {
         public List<(string, Func<string>)> Variables { get; set; } =
         [

@@ -2,7 +2,7 @@
 
 namespace Asjc.Natex.Matchers
 {
-    public class ListMatcher : NatexMatcher<IList, List<Natex>>
+    public class ListMatcher : NatexMatcher<List<Natex>, IList>
     {
         public override List<Natex>? Parse(Natex natex)
         {
@@ -10,7 +10,7 @@ namespace Asjc.Natex.Matchers
             return natexes.Count > 0 ? natexes : null;
         }
 
-        public override bool? Match(Natex natex, IList value, List<Natex> data)
+        public override bool? Match(Natex natex, List<Natex> data, IList value)
         {
             if (natex.Mode == NatexMode.Exact)
             {

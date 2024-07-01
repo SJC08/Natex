@@ -5,7 +5,7 @@ namespace Asjc.Natex.Matchers
     /// <summary>
     /// A NatexMatcher for matching via Regex.
     /// </summary>
-    public class RegexMatcher : NatexMatcher<string, RegexMatcher.Data>
+    public class RegexMatcher : NatexMatcher<RegexMatcher.Data, string>
     {
         public override Data? Parse(Natex natex)
         {
@@ -22,12 +22,12 @@ namespace Asjc.Natex.Matchers
             }
         }
 
-        public override bool ShouldParse(Natex natex, bool first, Data? data)
+        public override bool ShouldParse(Natex natex, Data? data, bool first)
         {
             return first || data?.Mode != natex.Mode || data?.CaseInsensitive != natex.CaseInsensitive;
         }
 
-        public override bool? Match(Natex natex, string value, Data data)
+        public override bool? Match(Natex natex, Data data, string value)
         {
             return data.Regex.IsMatch(value);
         }

@@ -5,7 +5,7 @@ namespace Asjc.Natex.Matchers
     /// <summary>
     /// A NatexMatcher for determining whether a value is in a particular range.
     /// </summary>
-    public class RangeMatcher : NatexMatcher<IComparable, RangeMatcher.Data>
+    public class RangeMatcher : NatexMatcher<RangeMatcher.Data, IComparable>
     {
         public override Data? Parse(Natex natex)
         {
@@ -15,7 +15,7 @@ namespace Asjc.Natex.Matchers
             return null;
         }
 
-        public override bool? Match(Natex natex, IComparable value, Data data)
+        public override bool? Match(Natex natex, Data data, IComparable value)
         {
             Type type = value.GetType();
             if (data.Min.ConvertTo(type, out var min) && data.Max.ConvertTo(type, out var max))

@@ -2,7 +2,7 @@
 
 namespace Asjc.Natex.Matchers
 {
-    public class AnythingMatcher : NatexMatcher
+    public class AnythingMatcher : NatexBasicMatcher
     {
         public List<(string, bool)> Map { get; set; } =
         [

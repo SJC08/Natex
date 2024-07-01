@@ -5,7 +5,7 @@ namespace Asjc.Natex.Matchers
     /// <summary>
     /// A NatexMatcher for comparing value with the given one.
     /// </summary>
-    public class ComparisonMatcher : NatexMatcher<IComparable>
+    public class ComparisonMatcher : NatexBasicMatcher<IComparable>
     {
         public override bool? Match(Natex natex, IComparable value)
         {

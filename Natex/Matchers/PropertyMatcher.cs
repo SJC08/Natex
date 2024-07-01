@@ -5,7 +5,7 @@ namespace Asjc.Natex.Matchers
     /// <summary>
     /// A NatexMatcher for matching property of an object.
     /// </summary>
-    public class PropertyMatcher : NatexMatcher<object, PropertyMatcher.Data>
+    public class PropertyMatcher : NatexMatcher<PropertyMatcher.Data>
     {
         public List<string[]> DefaultPaths { get; set; } = [];
 
@@ -25,7 +25,7 @@ namespace Asjc.Natex.Matchers
             };
         }
 
-        public override bool? Match(Natex natex, object value, Data data)
+        public override bool? Match(Natex natex, Data data, object value)
         {
             natex = new Natex(data.Pattern, natex);
             if (data.Path is null)
