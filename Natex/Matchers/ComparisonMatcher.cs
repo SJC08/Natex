@@ -7,7 +7,7 @@ namespace Asjc.Natex.Matchers
     /// </summary>
     public class ComparisonMatcher : NatexMatcher<IComparable>
     {
-        public override bool? Match(IComparable value, Natex natex)
+        public override bool? Match(Natex natex, IComparable value)
         {
             string pattern = natex.Pattern;
             if (pattern.StartsWith("<="))
@@ -26,16 +26,16 @@ namespace Asjc.Natex.Matchers
                 return CompareEquality(pattern, value);
         }
 
-        protected virtual bool? CompareLessThan(string input, IComparable value) 
+        protected virtual bool? CompareLessThan(string input, IComparable value)
             => input.ConvertTo(value.GetType(), out var result) ? value.CompareTo(result) < 0 : null;
 
-        protected virtual bool? CompareGreaterThan(string input, IComparable value) 
+        protected virtual bool? CompareGreaterThan(string input, IComparable value)
             => input.ConvertTo(value.GetType(), out var result) ? value.CompareTo(result) > 0 : null;
 
-        protected virtual bool? CompareLessThanOrEqual(string input, IComparable value) 
+        protected virtual bool? CompareLessThanOrEqual(string input, IComparable value)
             => input.ConvertTo(value.GetType(), out var result) ? value.CompareTo(result) <= 0 : null;
 
-        protected virtual bool? CompareGreaterThanOrEqual(string input, IComparable value) 
+        protected virtual bool? CompareGreaterThanOrEqual(string input, IComparable value)
             => input.ConvertTo(value.GetType(), out var result) ? value.CompareTo(result) >= 0 : null;
 
         protected virtual bool? CompareEquality(string input, IComparable value)

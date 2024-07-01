@@ -10,7 +10,7 @@ namespace Asjc.Natex.Matchers
             return natexes.Count > 0 ? natexes : null;
         }
 
-        public override bool? Match(IList value, List<Natex> data, Natex natex)
+        public override bool? Match(Natex natex, IList value, List<Natex> data)
         {
             if (natex.Mode == NatexMode.Exact)
             {

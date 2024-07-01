@@ -5,7 +5,7 @@ namespace Asjc.Natex.Matchers
 {
     public class NullOrEmptyMatcher : INatexMatcher
     {
-        public bool? Match(object? value, object? data, Natex natex)
+        public bool? Match(Natex natex, object? value, object? data)
         {
             if (natex.Pattern.Equals("null", natex.CaseInsensitive))
             {

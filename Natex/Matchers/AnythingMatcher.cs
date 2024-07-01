@@ -11,7 +11,7 @@ namespace Asjc.Natex.Matchers
             new("any", true),
         ];
 
-        public override bool? Match(object value, Natex natex)
+        public override bool? Match(Natex natex, object value)
         {
             foreach (var item in Map)
             {

@@ -25,7 +25,7 @@ namespace Asjc.Natex.Matchers
             };
         }
 
-        public override bool? Match(object value, Data data, Natex natex)
+        public override bool? Match(Natex natex, object value, Data data)
         {
             natex = new Natex(data.Pattern, natex);
             if (data.Path is null)

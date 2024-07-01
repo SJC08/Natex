@@ -71,7 +71,7 @@ namespace Asjc.Natex
             {
                 Parse(matcher);
                 object? data = map.GetValueOrDefault(matcher);
-                bool? result = matcher.Match(value, data, this);
+                bool? result = matcher.Match(this, value, data);
                 if (result != null) // No return for null.
                     return (bool)result;
             }
@@ -97,7 +97,7 @@ namespace Asjc.Natex
         {
             // Try to get the existing value.
             bool first = !map.TryGetValue(matcher, out object? data);
-            if (force || matcher.ShouldParse(first, data, this))
+            if (force || matcher.ShouldParse(this, first, data))
                 map[matcher] = matcher.Parse(this);
         }
 

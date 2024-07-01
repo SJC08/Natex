@@ -27,7 +27,7 @@ namespace Asjc.Natex.Matchers
             "<{0}>"
         ];
 
-        public override bool? Match(object value, Natex natex)
+        public override bool? Match(Natex natex, object value)
         {
             string str = natex.Pattern;
             foreach (var f in Formats)

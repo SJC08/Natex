@@ -7,7 +7,7 @@ namespace Asjc.Natex.Matchers
     /// </summary>
     public class StringMatcher : NatexMatcher
     {
-        public override bool? Match(object value, Natex natex)
+        public override bool? Match(Natex natex, object value)
         {
             if (natex.Mode == NatexMode.Exact)
             {

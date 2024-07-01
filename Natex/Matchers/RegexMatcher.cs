@@ -22,12 +22,12 @@ namespace Asjc.Natex.Matchers
             }
         }
 
-        public override bool ShouldParse(bool first, Data? data, Natex natex)
+        public override bool ShouldParse(Natex natex, bool first, Data? data)
         {
             return first || data?.Mode != natex.Mode || data?.CaseInsensitive != natex.CaseInsensitive;
         }
 
-        public override bool? Match(string value, Data data, Natex natex)
+        public override bool? Match(Natex natex, string value, Data data)
         {
             return data.Regex.IsMatch(value);
         }

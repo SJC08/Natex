@@ -11,7 +11,7 @@
             return arr.Length > 1 ? arr.Select(p => new Natex(p, natex)).ToArray() : null;
         }
 
-        public override bool? Match(object value, Natex[] data, Natex natex)
+        public override bool? Match(Natex natex, object value, Natex[] data)
         {
             return data.All(n => n.Match(value)) ? true : null;
         }
