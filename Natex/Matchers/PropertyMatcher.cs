@@ -9,20 +9,37 @@ namespace Asjc.Natex.Matchers
     {
         public List<string[]> DefaultPaths { get; set; } = [];
 
+        public List<char> ImplicitCase { get; set; } = ['<', '>', '≤', '≥'];
+
         public bool AlwaysMatchDefault { get; set; } = true;
 
         public override Data? Parse(Natex natex)
         {
-            var arr = natex.Pattern.Split(':', 2);
             var flags = BindingFlags.Instance | BindingFlags.Public;
-            if (natex.CaseInsensitive)
-                flags |= BindingFlags.IgnoreCase;
-            return arr.Length switch
+            if (natex.CaseInsensitive) flags |= BindingFlags.IgnoreCase;
+            string? path = null;
+            string pattern;
+            var arr = natex.Pattern.Split(':', 2);
+            if (arr.Length == 2)
             {
-                1 => new(null, arr[0], flags),
-                2 => new(arr[0].Split('.'), arr[1], flags),
-                _ => null // When?
-            };
+                path = arr[0];
+                pattern = arr[1];
+            }
+            else
+            {
+                pattern = arr[0];
+                foreach (var c in ImplicitCase)
+                {
+                    int index = natex.Pattern.IndexOf(c);
+                    if (index > 0)
+                    {
+                        path = natex.Pattern[..index];
+                        pattern = natex.Pattern[index..];
+                        break;
+                    }
+                }
+            }
+            return new(path?.Split('.'), pattern, flags);
         }
 
         public override bool? Match(Natex natex, Data data, object value)

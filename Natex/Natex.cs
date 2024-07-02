@@ -8,6 +8,30 @@ namespace Asjc.Natex
         private readonly Dictionary<INatexMatcher, object?> map = [];
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="Natex"/> class with an empty pattern.
+        /// </summary>
+        public Natex()
+        {
+            Pattern = string.Empty;
+            Matchers =
+            [
+                new AnythingMatcher(),
+                new NullOrEmptyMatcher(),
+                new VariableMatcher(),
+                new NegationMatcher(),
+                new StringMatcher(),
+                new ComparisonMatcher(),
+                new RangeMatcher(),
+                new ListMatcher(),
+                new RegexMatcher(),
+                new MultiPatternMatcher(),
+                new PropertyMatcher(),
+            ];
+            Mode = NatexMode.Exact;
+            CaseInsensitive = true;
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Natex"/> class with the specified pattern.
         /// </summary>
         /// <param name="pattern">The Natex pattern to match.</param>
@@ -48,7 +72,7 @@ namespace Asjc.Natex
         /// <summary>
         /// Gets the Natex pattern.
         /// </summary>
-        public string Pattern { get; }
+        public string Pattern { get; init; }
 
         /// <summary>
         /// Gets or sets the list of Natex matchers.
