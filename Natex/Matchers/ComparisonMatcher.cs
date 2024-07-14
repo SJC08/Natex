@@ -27,18 +27,18 @@ namespace Asjc.Natex.Matchers
         }
 
         protected virtual bool? CompareLessThan(string input, IComparable value)
-            => input.ConvertTo(value.GetType(), out var result) ? value.CompareTo(result) < 0 : null;
+            => input.TryChangeType(value.GetType(), out var result) ? value.CompareTo(result) < 0 : null;
 
         protected virtual bool? CompareGreaterThan(string input, IComparable value)
-            => input.ConvertTo(value.GetType(), out var result) ? value.CompareTo(result) > 0 : null;
+            => input.TryChangeType(value.GetType(), out var result) ? value.CompareTo(result) > 0 : null;
 
         protected virtual bool? CompareLessThanOrEqual(string input, IComparable value)
-            => input.ConvertTo(value.GetType(), out var result) ? value.CompareTo(result) <= 0 : null;
+            => input.TryChangeType(value.GetType(), out var result) ? value.CompareTo(result) <= 0 : null;
 
         protected virtual bool? CompareGreaterThanOrEqual(string input, IComparable value)
-            => input.ConvertTo(value.GetType(), out var result) ? value.CompareTo(result) >= 0 : null;
+            => input.TryChangeType(value.GetType(), out var result) ? value.CompareTo(result) >= 0 : null;
 
         protected virtual bool? CompareEquality(string input, IComparable value)
-            => input.ConvertTo(value.GetType(), out var result) && value.CompareTo(result) == 0 ? true : null;
+            => input.TryChangeType(value.GetType(), out var result) && value.CompareTo(result) == 0 ? true : null;
     }
 }

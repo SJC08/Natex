@@ -1,7 +1,7 @@
 ﻿namespace Asjc.Natex
 {
     /// <summary>
-    /// Base abstract class for Natex matching (no support for saving data).
+    /// Base abstract class for Natex basic matching (no support for saving data).
     /// </summary>
     public abstract class NatexBasicMatcher : NatexBasicMatcher<object> { }
 
