@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Asjc.Collections.Extended" Version="1.2.4" />
+    <PackageReference Include="Asjc.Collections.Extended" Version="1.2.8" />
     <PackageReference Include="Asjc.Extensions" Version="1.2.3" />
   </ItemGroup>
 
