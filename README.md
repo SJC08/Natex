@@ -24,3 +24,6 @@ You can also create your **own** Matcher. You can get started quickly with the `
 
 Read the source code for more information!
 
+## Credits
+
+- Icon from https://www.iconfinder.com/icons/9080776
