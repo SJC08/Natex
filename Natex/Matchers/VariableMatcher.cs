@@ -27,6 +27,7 @@ namespace Asjc.Natex.Matchers
             "<{0}>"
         ];
 
+        /// <inheritdoc/>
         public Func<object?, bool?>? Create(Natex natex)
         {
             return value =>

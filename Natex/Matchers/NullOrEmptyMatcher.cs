@@ -5,6 +5,7 @@ namespace Asjc.Natex.Matchers
 {
     public class NullOrEmptyMatcher : INatexMatcher
     {
+        /// <inheritdoc/>
         public Func<object?, bool?>? Create(Natex natex)
         {
             return value =>

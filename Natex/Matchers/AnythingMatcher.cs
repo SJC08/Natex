@@ -11,6 +11,7 @@ namespace Asjc.Natex.Matchers
             new("any", true),
         ];
 
+        /// <inheritdoc/>
         public Func<object?, bool?>? Create(Natex natex)
         {
             foreach (var item in Map)

@@ -7,6 +7,7 @@ namespace Asjc.Natex.Matchers
     /// </summary>
     public class ComparisonMatcher : NatexMatcher<IComparable>
     {
+        /// <inheritdoc/>
         public override Func<IComparable, bool?>? Create(Natex natex)
         {
             return value =>

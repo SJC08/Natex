@@ -4,6 +4,7 @@ namespace Asjc.Natex.Matchers
 {
     public class ListMatcher : NatexMatcher<IList>
     {
+        /// <inheritdoc/>
         public override Func<IList, bool?>? Create(Natex natex)
         {
             var natexes = natex.Pattern.Split(',').Select(s => new Natex(s, natex)).ToList();

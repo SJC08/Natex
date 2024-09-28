@@ -6,6 +6,7 @@ namespace Asjc.Natex.Matchers
     /// </summary>
     public class MultiPatternMatcher : INatexMatcher
     {
+        /// <inheritdoc/>
         public Func<object?, bool?>? Create(Natex natex)
         {
             var arr = natex.Pattern.Split(" ");

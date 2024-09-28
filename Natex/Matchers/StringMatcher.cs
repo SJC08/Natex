@@ -7,6 +7,7 @@ namespace Asjc.Natex.Matchers
     /// </summary>
     public class StringMatcher : NatexMatcher
     {
+        /// <inheritdoc/>
         public override Func<object?, bool?>? Create(Natex natex)
         {
             return value =>

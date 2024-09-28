@@ -3,6 +3,7 @@ namespace Asjc.Natex.Matchers
 {
     public class NegationMatcher : INatexMatcher
     {
+        /// <inheritdoc/>
         public Func<object?, bool?>? Create(Natex natex)
         {
             if (!string.IsNullOrEmpty(natex.Pattern) && natex.Pattern[0] == '!')

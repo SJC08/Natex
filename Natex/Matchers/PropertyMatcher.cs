@@ -13,6 +13,7 @@ namespace Asjc.Natex.Matchers
 
         public bool AlwaysMatchDefault { get; set; } = true;
 
+        /// <inheritdoc/>
         public override Func<object?, bool?>? Create(Natex natex)
         {
             var flags = BindingFlags.Instance | BindingFlags.Public;
