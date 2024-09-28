@@ -5,7 +5,7 @@ namespace Asjc.Natex.Matchers
     /// <summary>
     /// A NatexMatcher for replacing variables.
     /// </summary>
-    public class VariableMatcher : NatexBasicMatcher
+    public class VariableMatcher : INatexMatcher
     {
         public List<(string, Func<string>)> Variables { get; set; } =
         [
@@ -27,21 +27,24 @@ namespace Asjc.Natex.Matchers
             "<{0}>"
         ];
 
-        public override bool? Match(Natex natex, object value)
+        public Func<object?, bool?>? Create(Natex natex)
         {
-            string str = natex.Pattern;
-            foreach (var f in Formats)
+            return value =>
             {
-                foreach (var v in Variables)
+                string str = natex.Pattern;
+                foreach (var f in Formats)
                 {
-                    string oldValue = string.Format(f, v.Item1);
-                    str = str.Replace(oldValue, v.Item2(), natex.CaseInsensitive);
+                    foreach (var v in Variables)
+                    {
+                        string oldValue = string.Format(f, v.Item1);
+                        str = str.Replace(oldValue, v.Item2(), natex.CaseInsensitive);
+                    }
                 }
-            }
-            // Be careful not to make circular calls.
-            natex = new(str, natex);
-            natex.Matchers.Remove(this);
-            return natex.Match(value);
+                // Be careful not to make circular calls.
+                Natex subNatex = new(str, natex);
+                subNatex.Matchers.Remove(this);
+                return subNatex.Match(value);
+            };
         }
     }
 }

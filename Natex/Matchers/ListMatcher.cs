@@ -2,35 +2,34 @@
 
 namespace Asjc.Natex.Matchers
 {
-    public class ListMatcher : NatexMatcher<List<Natex>, IList>
+    public class ListMatcher : NatexMatcher<IList>
     {
-        public override List<Natex>? Parse(Natex natex)
+        public override Func<IList, bool?>? Create(Natex natex)
         {
             var natexes = natex.Pattern.Split(',').Select(s => new Natex(s, natex)).ToList();
-            return natexes.Count > 0 ? natexes : null;
-        }
-
-        public override bool? Match(Natex natex, List<Natex> data, IList value)
-        {
-            if (natex.Mode == NatexMode.Exact)
+            if (natexes.Count == 0) return null;
+            return value =>
             {
-                // Sensitive to sequence.
-                if (value.Count != data.Count)
-                    return null;
-                for (int i = 0; i < value.Count; i++)
+                if (natex.Mode == NatexMode.Exact)
                 {
-                    if (!data[i].Match(value[i]))
+                    // Sensitive to sequence.
+                    if (value.Count != natexes.Count)
                         return null;
-                }
-                return true;
-            }
-            else
-            {
-                // Inclusion is enough.
-                if (data.All(d => value.Cast<object>().Any(d.Match)))
+                    for (int i = 0; i < value.Count; i++)
+                    {
+                        if (!natexes[i].Match(value[i]))
+                            return null;
+                    }
                     return true;
-                return null;
-            }
+                }
+                else
+                {
+                    // Inclusion is enough.
+                    if (natexes.All(d => value.Cast<object>().Any(d.Match)))
+                        return true;
+                    return null;
+                }
+            };
         }
     }
 }

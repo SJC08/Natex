@@ -1,16 +1,14 @@
-﻿namespace Asjc.Natex.Matchers
+﻿
+namespace Asjc.Natex.Matchers
 {
-    public class NegationMatcher : NatexBasicMatcher
+    public class NegationMatcher : INatexMatcher
     {
-        public override bool? Match(Natex natex, object value)
+        public Func<object?, bool?>? Create(Natex natex)
         {
-            if (!string.IsNullOrEmpty(natex.Pattern))
+            if (!string.IsNullOrEmpty(natex.Pattern) && natex.Pattern[0] == '!')
             {
-                if (natex.Pattern[0] == '!')
-                {
-                    Natex n = new(natex.Pattern[1..], natex);
-                    return !n.Match(value);
-                }
+                Natex n = new(natex.Pattern[1..], natex);
+                return value => !n.Match(value);
             }
             return null;
         }

@@ -5,24 +5,22 @@ namespace Asjc.Natex.Matchers
     /// <summary>
     /// A NatexMatcher for determining whether a value is in a particular range.
     /// </summary>
-    public class RangeMatcher : NatexMatcher<RangeMatcher.Data, IComparable>
+    public class RangeMatcher : NatexMatcher<IComparable>
     {
-        public override Data? Parse(Natex natex)
+        public override Func<IComparable, bool?>? Create(Natex natex)
         {
             var arr = natex.Pattern.Split('-', '~', '↔');
             if (arr.Length == 2)
-                return new(arr[0], arr[1]);
+            {
+                return value =>
+                {
+                    Type type = value.GetType();
+                    if (arr[0].TryChangeType(type, out var min) && arr[1].TryChangeType(type, out var max))
+                        return value.CompareTo(min) >= 0 && value.CompareTo(max) <= 0;
+                    return false;
+                };
+            }
             return null;
         }
-
-        public override bool? Match(Natex natex, Data data, IComparable value)
-        {
-            Type type = value.GetType();
-            if (data.Min.TryChangeType(type, out var min) && data.Max.TryChangeType(type, out var max))
-                return value.CompareTo(min) >= 0 && value.CompareTo(max) <= 0;
-            return false;
-        }
-
-        public record Data(string Min, string Max);
     }
 }

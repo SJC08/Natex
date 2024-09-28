@@ -5,24 +5,19 @@ namespace Asjc.Natex.Matchers
     /// <summary>
     /// A NatexMatcher for matching the string representation of an object.
     /// </summary>
-    public class StringMatcher : NatexBasicMatcher
+    public class StringMatcher : NatexMatcher
     {
-        public override bool? Match(Natex natex, object value)
+        public override Func<object?, bool?>? Create(Natex natex)
         {
-            if (natex.Mode == NatexMode.Exact)
+            return value =>
             {
-                if (natex.Pattern.Equals(value.ToString(), natex.CaseInsensitive))
-                    return true;
+                string? str = value?.ToString();
+                if (str == null) return null;
+                if (natex.Mode == NatexMode.Exact)
+                    return str.Equals(natex.Pattern, natex.CaseInsensitive) ? true : null;
                 else
-                    return null;
-            }
-            else
-            {
-                if (natex.Pattern.Contains(value.ToString(), natex.CaseInsensitive))
-                    return true;
-                else
-                    return null;
-            }
+                    return str.Contains(natex.Pattern, natex.CaseInsensitive) ? true : null;
+            };
         }
     }
 }

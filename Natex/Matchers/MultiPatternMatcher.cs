@@ -1,19 +1,16 @@
-﻿namespace Asjc.Natex.Matchers
+﻿
+namespace Asjc.Natex.Matchers
 {
     /// <summary>
     /// A NatexMatcher for handling multiple patterns.
     /// </summary>
-    public class MultiPatternMatcher : NatexMatcher<Natex[]>
+    public class MultiPatternMatcher : INatexMatcher
     {
-        public override Natex[]? Parse(Natex natex)
+        public Func<object?, bool?>? Create(Natex natex)
         {
             var arr = natex.Pattern.Split(" ");
-            return arr.Length > 1 ? arr.Select(p => new Natex(p, natex)).ToArray() : null;
-        }
-
-        public override bool? Match(Natex natex, Natex[] data, object value)
-        {
-            return data.All(n => n.Match(value)) ? true : null;
+            if (arr.Length <= 1) return null;
+            return value => arr.Select(p => new Natex(p, natex)).All(n => n.Match(value)) ? true : null;
         }
     }
 }

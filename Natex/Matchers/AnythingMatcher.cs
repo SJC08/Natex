@@ -2,7 +2,7 @@
 
 namespace Asjc.Natex.Matchers
 {
-    public class AnythingMatcher : NatexBasicMatcher
+    public class AnythingMatcher : INatexMatcher
     {
         public List<(string, bool)> Map { get; set; } =
         [
@@ -11,12 +11,12 @@ namespace Asjc.Natex.Matchers
             new("any", true),
         ];
 
-        public override bool? Match(Natex natex, object value)
+        public Func<object?, bool?>? Create(Natex natex)
         {
             foreach (var item in Map)
             {
-                if (item.Item1.Equals(natex.Pattern, natex.CaseInsensitive))
-                    return item.Item2;
+                if (natex.Pattern.Equals(item.Item1, natex.CaseInsensitive))
+                    return _ => item.Item2;
             }
             return null;
         }
