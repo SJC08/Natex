@@ -1,16 +1,17 @@
 ﻿namespace Asjc.Natex
 {
     /// <summary>
-    /// Base abstract class for Natex matching.
+    /// Base class for matching values in <see cref="Natex"/>.
     /// </summary>
     public abstract class NatexMatcher : NatexMatcher<object>;
 
     /// <summary>
-    /// Base abstract class for Natex matching with specified value type.
+    /// Base class for matching values of a specific type in <see cref="Natex"/>.
     /// </summary>
-    /// <typeparam name="T">The type of value to be matched</typeparam>
+    /// <typeparam name="T">The type of value to be matched.</typeparam>
     public abstract class NatexMatcher<T> : INatexMatcher
     {
+        /// <inheritdoc cref="INatexMatcher.Create(Natex)"/>
         public abstract Func<T, bool?>? Create(Natex natex);
 
         Func<object?, bool?>? INatexMatcher.Create(Natex natex)
