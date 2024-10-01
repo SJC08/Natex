@@ -22,7 +22,5 @@ namespace Asjc.Natex.Matchers
                 return null;
             }
         }
-
-        public record Data(Regex Regex, NatexMode Mode, bool CaseInsensitive);
     }
 }

@@ -84,7 +84,11 @@ namespace Asjc.Natex
         /// <summary>
         /// Gets the Natex pattern.
         /// </summary>
+#if NET8_0
         public string Pattern { get; init; }
+#else
+        public string Pattern { get; }
+#endif
 
         /// <summary>
         /// Gets or sets the list of Natex matchers.
