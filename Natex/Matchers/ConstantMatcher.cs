@@ -2,19 +2,18 @@
 
 namespace Asjc.Natex.Matchers
 {
-    public class AnythingMatcher : INatexMatcher
+    public class ConstantMatcher : INatexMatcher
     {
-        public List<(string, bool)> Map { get; set; } =
+        public List<(string, bool)> Constants { get; set; } =
         [
-            new(string.Empty, false),
             new("*", true),
-            new("any", true),
+            new("Any", true),
         ];
 
         /// <inheritdoc/>
         public Func<object?, bool?>? Create(Natex natex)
         {
-            foreach (var item in Map)
+            foreach (var item in Constants)
             {
                 if (natex.Pattern.Equals(item.Item1, natex.CaseInsensitive))
                     return _ => item.Item2;

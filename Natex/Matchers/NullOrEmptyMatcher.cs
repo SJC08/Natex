@@ -12,7 +12,7 @@ namespace Asjc.Natex.Matchers
             {
                 if (natex.Pattern.Equals("null", natex.CaseInsensitive))
                 {
-                    return value is null;
+                    return value == null;
                 }
                 else if (natex.Pattern.Equals("empty", natex.CaseInsensitive))
                 {

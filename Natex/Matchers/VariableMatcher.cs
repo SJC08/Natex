@@ -21,10 +21,7 @@ namespace Asjc.Natex.Matchers
 
         public List<string> Formats { get; set; } =
         [
-            "({0})",
-            "[{0}]",
-            "{{{0}}}",
-            "<{0}>"
+            "{{{0}}}"
         ];
 
         /// <inheritdoc/>
@@ -32,17 +29,17 @@ namespace Asjc.Natex.Matchers
         {
             return value =>
             {
-                string str = natex.Pattern;
+                string newPattern = natex.Pattern;
                 foreach (var f in Formats)
                 {
                     foreach (var v in Variables)
                     {
                         string oldValue = string.Format(f, v.Item1);
-                        str = str.Replace(oldValue, v.Item2(), natex.CaseInsensitive);
+                        newPattern = newPattern.Replace(oldValue, v.Item2(), natex.CaseInsensitive);
                     }
                 }
                 // Be careful not to make circular calls.
-                Natex subNatex = new(str, natex);
+                Natex subNatex = new(newPattern, natex);
                 subNatex.Matchers.Remove(this);
                 return subNatex.Match(value);
             };
