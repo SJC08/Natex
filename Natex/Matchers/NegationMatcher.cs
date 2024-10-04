@@ -6,7 +6,7 @@ namespace Asjc.Natex.Matchers
         /// <inheritdoc/>
         public Func<object?, bool?>? Create(Natex natex)
         {
-            if (natex.Pattern.Length > 0 && natex.Pattern[0] == '!')
+            if (natex.Pattern.StartsWith('!'))
             {
                 Natex n = new(natex.Pattern[1..], natex);
                 return value => !n.Match(value);

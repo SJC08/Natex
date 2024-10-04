@@ -9,15 +9,15 @@ namespace Asjc.Natex.Matchers
     {
         public List<string[]> DefaultPaths { get; set; } = [];
 
-        public List<char> ImplicitCase { get; set; } = ['<', '>', '≤', '≥'];
-
         public bool AlwaysMatchDefault { get; set; } = true;
 
         /// <inheritdoc/>
         public override Func<object?, bool?>? Create(Natex natex)
         {
+            // Prepare BindingFlags.
             var flags = BindingFlags.Instance | BindingFlags.Public;
             if (natex.CaseInsensitive) flags |= BindingFlags.IgnoreCase;
+            // Parse the path and pattern.
             string[]? path = null;
             string pattern;
             var arr = natex.Pattern.Split(':', 2);
@@ -29,28 +29,19 @@ namespace Asjc.Natex.Matchers
             else
             {
                 pattern = arr[0];
-                foreach (var c in ImplicitCase)
-                {
-                    int index = natex.Pattern.IndexOf(c);
-                    if (index > 0)
-                    {
-                        path = natex.Pattern[..index].Split('.');
-                        pattern = natex.Pattern[index..];
-                        break;
-                    }
-                }
             }
+            // Create a Natex.
             natex = new(pattern, natex);
             return value =>
             {
                 if (path == null)
+                {
                     return DefaultPaths.Any(Handle) ? true : null;
-                if (Handle(path))
-                    return true;
-                if (AlwaysMatchDefault)
-                    return DefaultPaths.Any(Handle);
-                return false;
-
+                }
+                else
+                {
+                    return Handle(path) || AlwaysMatchDefault && DefaultPaths.Any(Handle);
+                }
 
                 bool Handle(string[] path)
                 {
@@ -59,7 +50,8 @@ namespace Asjc.Natex.Matchers
                     {
                         if (obj == null) return false;
                         var info = obj.GetType().GetProperty(name, flags);
-                        obj = info?.GetValue(obj);
+                        if (info == null) return false;
+                        obj = info.GetValue(obj);
                     }
                     return natex.Match(obj);
                 }

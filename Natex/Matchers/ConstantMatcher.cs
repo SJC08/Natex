@@ -7,7 +7,7 @@ namespace Asjc.Natex.Matchers
         public List<(string, bool)> Constants { get; set; } =
         [
             new("*", true),
-            new("Any", true),
+            new("any", true),
         ];
 
         /// <inheritdoc/>

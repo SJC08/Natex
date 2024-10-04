@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.5.2</Version>
+    <Version>0.5.3</Version>
     <Authors>AlexSJC</Authors>
     <Description>Provides a quick way to match objects.</Description>
     <Copyright>Copyright © $(Authors) $([System.DateTime]::Now.Year)</Copyright>

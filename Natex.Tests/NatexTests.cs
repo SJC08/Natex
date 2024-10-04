@@ -117,6 +117,6 @@ namespace Asjc.Natex.Tests
         public void Natex28() => Assert.IsTrue(new Natex("number:0").Match(new Record(0)));
 
         [TestMethod]
-        public void Natex29() => Assert.IsTrue(new Natex { Pattern = "Number>0" }.Match(new Record(1)));
+        public void Natex29() => Assert.IsTrue(new Natex { Pattern = "Number:>0" }.Match(new Record(1)));
     }
 }
