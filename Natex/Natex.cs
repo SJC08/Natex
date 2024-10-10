@@ -15,7 +15,7 @@ namespace Asjc.Natex
             Pattern = string.Empty;
             Matchers =
             [
-                new ConstantMatcher(),
+                new AnythingMatcher(),
                 new NullOrEmptyMatcher(),
                 new VariableMatcher(),
                 new NegationMatcher(),
@@ -40,7 +40,7 @@ namespace Asjc.Natex
             Pattern = pattern;
             Matchers =
             [
-                new ConstantMatcher(),
+                new AnythingMatcher(),
                 new NullOrEmptyMatcher(),
                 new VariableMatcher(),
                 new NegationMatcher(),
