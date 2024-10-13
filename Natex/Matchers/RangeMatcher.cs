@@ -17,11 +17,13 @@ namespace Asjc.Natex.Matchers
                 {
                     Type type = value.GetType();
                     if (arr[0].TryChangeType(type, out var min) && arr[1].TryChangeType(type, out var max))
-                        return value.CompareTo(min) >= 0 && value.CompareTo(max) <= 0;
-                    return false;
+                        return Compare(min, value) >= 0 && Compare(max, value) <= 0;
+                    return null;
                 };
             }
             return null;
         }
+
+        protected virtual int Compare(object obj, IComparable value) => value.CompareTo(obj);
     }
 }

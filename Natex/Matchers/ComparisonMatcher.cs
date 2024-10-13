@@ -13,91 +13,30 @@ namespace Asjc.Natex.Matchers
             string pattern = natex.Pattern;
             // Less than or equal operator.
             if (pattern.StartsWith("<="))
-            {
-                return value =>
-                {
-                    int? i = Compare(pattern[2..], value);
-                    return i != null ? i <= 0 : null;
-                };
-            }
+                return value => pattern[2..].TryChangeType(value.GetType(), out var result) ? Compare(result, value) <= 0 : null;
             if (pattern.StartsWith('≤'))
-            {
-                return value =>
-                {
-                    int? i = Compare(pattern[1..], value);
-                    return i != null ? i <= 0 : null;
-                };
-            }
+                return value => pattern[1..].TryChangeType(value.GetType(), out var result) ? Compare(result, value) <= 0 : null;
             // Less than operator.
             if (pattern.StartsWith('<'))
-            {
-                return value =>
-                {
-                    int? i = Compare(pattern[1..], value);
-                    return i != null ? i < 0 : null;
-                };
-            }
+                return value => pattern[1..].TryChangeType(value.GetType(), out var result) ? Compare(result, value) < 0 : null;
             if (pattern.StartsWith('＜'))
-            {
-                return value =>
-                {
-                    int? i = Compare(pattern[1..], value);
-                    return i != null ? i < 0 : null;
-                };
-            }
+                return value => pattern[1..].TryChangeType(value.GetType(), out var result) ? Compare(result, value) < 0 : null;
             // Greater than or equal operator.
             if (pattern.StartsWith(">="))
-            {
-                return value =>
-                {
-                    int? i = Compare(pattern[2..], value);
-                    return i != null ? i >= 0 : null;
-                };
-            }
+                return value => pattern[2..].TryChangeType(value.GetType(), out var result) ? Compare(result, value) >= 0 : null;
             if (pattern.StartsWith('≥'))
-            {
-                return value =>
-                {
-                    int? i = Compare(pattern[1..], value);
-                    return i != null ? i >= 0 : null;
-                };
-            }
+                return value => pattern[1..].TryChangeType(value.GetType(), out var result) ? Compare(result, value) >= 0 : null;
             // Greater than operator.
             if (pattern.StartsWith('>'))
-            {
-                return value =>
-                {
-                    int? i = Compare(pattern[1..], value);
-                    return i != null ? i > 0 : null;
-                };
-            }
+                return value => pattern[1..].TryChangeType(value.GetType(), out var result) ? Compare(result, value) > 0 : null;
             if (pattern.StartsWith('＞'))
-            {
-                return value =>
-                {
-                    int? i = Compare(pattern[1..], value);
-                    return i != null ? i > 0 : null;
-                };
-            }
+                return value => pattern[1..].TryChangeType(value.GetType(), out var result) ? Compare(result, value) > 0 : null;
             // Equality operator.
             if (pattern.StartsWith('='))
-            {
-                return value =>
-                {
-                    int? i = Compare(pattern[1..], value);
-                    return i != null ? i == 0 : null;
-                };
-            }
-            return value =>
-            {
-                int? i = Compare(pattern, value);
-                return i == 0 ? true : null;
-            };
+                return value => pattern[1..].TryChangeType(value.GetType(), out var result) ? Compare(result, value) == 0 : null;
+            return value => pattern.TryChangeType(value.GetType(), out var result) && Compare(result, value) == 0 ? true : null;
         }
 
-        protected virtual int? Compare(string input, IComparable value)
-        {
-            return input.TryChangeType(value.GetType(), out var result) ? value.CompareTo(result) : null;
-        }
+        protected virtual int Compare(object obj, IComparable value) => value.CompareTo(obj);
     }
 }
