@@ -135,7 +135,12 @@ namespace Asjc.Natex
         public void Parse(INatexMatcher matcher, bool force = false)
         {
             if (!map.ContainsKey(matcher) || force)
-                map[matcher] = matcher.Create(this);
+            {
+                lock (map)
+                {
+                    map[matcher] = matcher.Create(this);
+                }
+            }
         }
 
         /// <inheritdoc/>

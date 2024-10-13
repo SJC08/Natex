@@ -118,5 +118,12 @@ namespace Asjc.Natex.Tests
 
         [TestMethod]
         public void Natex29() => Assert.IsTrue(new Natex { Pattern = "Number:>0" }.Match(new Record(1)));
+
+        [TestMethod]
+        public void Natex30()
+        {
+            Natex natex = new();
+            Parallel.For(0, 9, i => natex.Match(i));
+        }
     }
 }

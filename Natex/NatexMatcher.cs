@@ -3,7 +3,7 @@
     /// <summary>
     /// Base class for matching values in <see cref="Natex"/>.
     /// </summary>
-    public abstract class NatexMatcher : NatexMatcher<object>;
+    public abstract class NatexMatcher : NatexMatcher<object> { }
 
     /// <summary>
     /// Base class for matching values of a specific type in <see cref="Natex"/>.
