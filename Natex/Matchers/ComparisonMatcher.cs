@@ -10,39 +10,94 @@ namespace Asjc.Natex.Matchers
         /// <inheritdoc/>
         public override Func<IComparable, bool?>? Create(Natex natex)
         {
+            string pattern = natex.Pattern;
+            // Less than or equal operator.
+            if (pattern.StartsWith("<="))
+            {
+                return value =>
+                {
+                    int? i = Compare(pattern[2..], value);
+                    return i != null ? i <= 0 : null;
+                };
+            }
+            if (pattern.StartsWith('≤'))
+            {
+                return value =>
+                {
+                    int? i = Compare(pattern[1..], value);
+                    return i != null ? i <= 0 : null;
+                };
+            }
+            // Less than operator.
+            if (pattern.StartsWith('<'))
+            {
+                return value =>
+                {
+                    int? i = Compare(pattern[1..], value);
+                    return i != null ? i < 0 : null;
+                };
+            }
+            if (pattern.StartsWith('＜'))
+            {
+                return value =>
+                {
+                    int? i = Compare(pattern[1..], value);
+                    return i != null ? i < 0 : null;
+                };
+            }
+            // Greater than or equal operator.
+            if (pattern.StartsWith(">="))
+            {
+                return value =>
+                {
+                    int? i = Compare(pattern[2..], value);
+                    return i != null ? i >= 0 : null;
+                };
+            }
+            if (pattern.StartsWith('≥'))
+            {
+                return value =>
+                {
+                    int? i = Compare(pattern[1..], value);
+                    return i != null ? i >= 0 : null;
+                };
+            }
+            // Greater than operator.
+            if (pattern.StartsWith('>'))
+            {
+                return value =>
+                {
+                    int? i = Compare(pattern[1..], value);
+                    return i != null ? i > 0 : null;
+                };
+            }
+            if (pattern.StartsWith('＞'))
+            {
+                return value =>
+                {
+                    int? i = Compare(pattern[1..], value);
+                    return i != null ? i > 0 : null;
+                };
+            }
+            // Equality operator.
+            if (pattern.StartsWith('='))
+            {
+                return value =>
+                {
+                    int? i = Compare(pattern[1..], value);
+                    return i != null ? i == 0 : null;
+                };
+            }
             return value =>
             {
-                string pattern = natex.Pattern;
-                if (pattern.StartsWith("<="))
-                    return CompareLessThanOrEqual(pattern[2..], value);
-                if (pattern.StartsWith('≤'))
-                    return CompareLessThanOrEqual(pattern[1..], value);
-                if (pattern.StartsWith('<'))
-                    return CompareLessThan(pattern[1..], value);
-                if (pattern.StartsWith(">="))
-                    return CompareGreaterThanOrEqual(pattern[2..], value);
-                if (pattern.StartsWith('≥'))
-                    return CompareGreaterThanOrEqual(pattern[1..], value);
-                if (pattern.StartsWith('>'))
-                    return CompareGreaterThan(pattern[1..], value);
-                else
-                    return CompareEquality(pattern, value);
+                int? i = Compare(pattern, value);
+                return i == 0 ? true : null;
             };
         }
 
-        protected virtual bool? CompareLessThan(string input, IComparable value)
-            => input.TryChangeType(value.GetType(), out var result) ? value.CompareTo(result) < 0 : null;
-
-        protected virtual bool? CompareGreaterThan(string input, IComparable value)
-            => input.TryChangeType(value.GetType(), out var result) ? value.CompareTo(result) > 0 : null;
-
-        protected virtual bool? CompareLessThanOrEqual(string input, IComparable value)
-            => input.TryChangeType(value.GetType(), out var result) ? value.CompareTo(result) <= 0 : null;
-
-        protected virtual bool? CompareGreaterThanOrEqual(string input, IComparable value)
-            => input.TryChangeType(value.GetType(), out var result) ? value.CompareTo(result) >= 0 : null;
-
-        protected virtual bool? CompareEquality(string input, IComparable value)
-            => input.TryChangeType(value.GetType(), out var result) && value.CompareTo(result) == 0 ? true : null;
+        protected virtual int? Compare(string input, IComparable value)
+        {
+            return input.TryChangeType(value.GetType(), out var result) ? value.CompareTo(result) : null;
+        }
     }
 }
