@@ -125,5 +125,11 @@ namespace Asjc.Natex.Tests
             Natex natex = new();
             Parallel.For(0, 9, i => natex.Match(i));
         }
+
+        [TestMethod]
+        public void Natex31() => Assert.IsTrue(new Natex("Length:1").Match(" "));
+
+        [TestMethod]
+        public void Natex32() => Assert.IsTrue(new Natex("/ABC/").Match("ABC"));
     }
 }

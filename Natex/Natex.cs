@@ -134,12 +134,10 @@ namespace Asjc.Natex
         /// <param name="force"><see langword="true"/> if if repeated parsing is allowed; otherwise, <see langword="false"/>.</param>
         public void Parse(INatexMatcher matcher, bool force = false)
         {
-            if (!map.ContainsKey(matcher) || force)
+            lock (map)
             {
-                lock (map)
-                {
-                    map[matcher] = matcher.Create(this);
-                }
+                if (!map.ContainsKey(matcher) || force)
+                    map.Add(matcher, matcher.Create(this));
             }
         }
 
