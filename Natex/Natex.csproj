@@ -9,9 +9,9 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.5.9</Version>
+    <Version>0.5.10</Version>
     <Authors>AlexSJC</Authors>
-    <Description>Provides a quick way to match objects.</Description>
+    <Description>Provides a quick and easy way to match objects.</Description>
     <Copyright>Copyright © $(Authors) $([System.DateTime]::Now.Year)</Copyright>
     <PackageIcon>Icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>

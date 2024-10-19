@@ -3,6 +3,9 @@ using Asjc.Natex.Matchers;
 
 namespace Asjc.Natex
 {
+    /// <summary>
+    /// Provides a quick and easy way to match objects.
+    /// </summary>
     public class Natex
     {
         private readonly Dictionary<INatexMatcher, Func<object?, bool?>?> map = [];

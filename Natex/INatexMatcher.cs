@@ -1,5 +1,8 @@
 ﻿namespace Asjc.Natex
 {
+    /// <summary>
+    /// Interface for matching values in <see cref="Natex"/>.
+    /// </summary>
     public interface INatexMatcher
     {
         /// <summary>

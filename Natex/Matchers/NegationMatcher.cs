@@ -8,8 +8,8 @@ namespace Asjc.Natex.Matchers
         {
             if (natex.Pattern.StartsWith('!'))
             {
-                Natex n = new(natex.Pattern[1..], natex);
-                return value => !n.Match(value);
+                Natex subNatex = new(natex.Pattern[1..], natex);
+                return value => !subNatex.Match(value);
             }
             return null;
         }
